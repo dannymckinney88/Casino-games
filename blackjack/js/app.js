@@ -22,7 +22,7 @@
 console.log(playerCards)
 playerCard.setAttribute('class','player-card')
 playerCard.setAttribute('src','./assests/blackjack/cardback1.png' )
-playerContainer.appendChild(playerCard)
+// playerContainer.appendChild(playerCard)
 
 
 
