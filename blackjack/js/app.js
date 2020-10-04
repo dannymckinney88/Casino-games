@@ -12,6 +12,8 @@ let game = {
     cpuCards: [],
     playerTurn: true,
     cpuTurn: false,
+    playerTotal: 0,
+    cpuTotal: 0,
     
     deck: [],
     // Builds a full 52card deck and puts them in the deck array.
@@ -42,11 +44,10 @@ let game = {
             for(let i =0; i < 2; i++){
                 // comme back and figure out how to slow down speed of cards comming out----
             getCard()
-            game.playerTurn = false
-            game.cpuTurn = true
+            switchPlayer()
             getCard()
-            game.playerTurn = true
-            game.cpuTurn = false
+            game.cpuTurn = false;
+            game.playerTurn = true;
             }
           
          
@@ -54,16 +55,33 @@ let game = {
     },
     hit() {
         hitButton.addEventListener('click', function(){
+            //Grabs current player a card
             getCard()
+            //Checks for bust after hit
+            game.checkBust()
         })
     },
 
     stand(){
         standButton.addEventListener('click', function(){
             console.log('stand')
-            game.playerTurn = false
-            game.cpuTurn = true
+            switchPlayer()
         })
+    },
+    checkBust() {
+        let bust = false
+        if(this.playerTurn){
+            for(let i=0; i <this.playerCards.length; i++ ){
+                // console.log(parseInt(this.playerCards[i].getAttribute('value')))
+                this.playerTotal += parseInt(this.playerCards[i].getAttribute('value'))
+            }
+
+        }else if(this.cpuTurn){
+            for(let i=0; i <this.cpuCards.length; i++ ){
+                // console.log(parseInt(this.cpuCards[i].getAttribute('value')))
+            }
+        }
+        console.log(this.playerTotal)
     }
 }
 // Creates cards with suit. Suits are labeled (s =spade c=clubs h=heart d=dimond)
@@ -93,6 +111,11 @@ function makeCards(suit){
     
         
     }
+}
+
+function switchPlayer(){
+    game.playerTurn = false
+    game.cpuTurn = true
 }
 
 function getCard(){
