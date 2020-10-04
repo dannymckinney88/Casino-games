@@ -7,7 +7,15 @@ h6 {
     font-size: 12px;
 }
 
-.card-container{
+.card-container-cpu{
+    display: flex;
+    justify-content: center;
+    border-radius: 25px;
+    border: 2px solid white;
+    margin: auto;
+    width: 34%;
+}
+.card-container-player{
     display: flex;
     justify-content: center;
     border-radius: 25px;
