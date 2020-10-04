@@ -1,3 +1,19 @@
+const clearBtn = document.querySelector('.clear-btn')
+
+const clear = () => {
+    clearBtn.addEventListener("click", function() {
+        console.log("test")
+        playerContainer.innerHTML = ''
+        cpuContainer.innerHTML = ''
+    })
+    // clearBtn.innerHTML = '',
+}
+
+
+
+clear()
+
+
 // Selectors 
     // card elements 
     const playerContainer = document.querySelector('.card-container-player')
@@ -44,17 +60,14 @@ let game = {
             playerCard.setAttribute('class', 'cpu-card')
             playerContainer.appendChild(playerCard)
             game.playerCards.push(playerCard)
-            console.log(game.playerCards)
             game.deck.shift()
-            console.log(game.cpuTurn)
+            console.log( playerContainer.length)
             }else if (game.cpuTurn){
                 //Creates a card for the cpu and adds to to the cpuCards array
                 cpuCard = game.deck[0]
-                console.log(cpuCard)
                 cpuCard.setAttribute('class', 'cpu-card')
                 cpuContainer.appendChild(cpuCard)
                 game.cpuCards.push(cpuCard)
-                console.log(game.cpuCards)
                 game.deck.shift()
             }
         })
@@ -64,7 +77,7 @@ let game = {
         standButton.addEventListener('click', function(){
             game.playerTurn = false
             game.cpuTurn = true
-            console.log(`cpu: ${game.cpuTurn}`)
+            // console.log(`cpu: ${game.cpuTurn}`)
         })
     }
 }
@@ -101,7 +114,4 @@ function makeCards(suit){
 game.buildDeck()
 game.shuffleDeck(game.deck)
 game.hit()
-// for(let i=0; i < 52; i++){
-//     console.log(game.deck[i])
-// }
 game.stand()
