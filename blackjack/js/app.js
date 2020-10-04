@@ -39,34 +39,30 @@ let game = {
         dealButton.addEventListener('click', function(){
             playerContainer.innerHTML = ''
             cpuContainer.innerHTML = ''
+            for(let i =0; i < 2; i++){
+                // comme back and figure out how to slow down speed of cards comming out----
+            getCard()
+            game.playerTurn = false
+            game.cpuTurn = true
+            getCard()
+            game.playerTurn = true
+            game.cpuTurn = false
+            }
+          
+         
         })
     },
     hit() {
         hitButton.addEventListener('click', function(){
-            if(game.playerTurn){
-                //Creates a card for the player and adds to to the playerCards array
-            playerCard = game.deck[0]
-            playerCard.setAttribute('class', 'cpu-card')
-            playerContainer.appendChild(playerCard)
-            game.playerCards.push(playerCard)
-            game.deck.shift()
-            console.log( playerContainer.length)
-            }else if (game.cpuTurn){
-                //Creates a card for the cpu and adds to to the cpuCards array
-                cpuCard = game.deck[0]
-                cpuCard.setAttribute('class', 'cpu-card')
-                cpuContainer.appendChild(cpuCard)
-                game.cpuCards.push(cpuCard)
-                game.deck.shift()
-            }
+            getCard()
         })
     },
 
     stand(){
         standButton.addEventListener('click', function(){
+            console.log('stand')
             game.playerTurn = false
             game.cpuTurn = true
-            // console.log(`cpu: ${game.cpuTurn}`)
         })
     }
 }
@@ -99,9 +95,27 @@ function makeCards(suit){
     }
 }
 
+function getCard(){
+    if(game.playerTurn){
+        //Creates a card for the player and adds to to the playerCards array
+    playerCard = game.deck[0]
+    playerCard.setAttribute('class', 'cpu-card')
+    playerContainer.appendChild(playerCard)
+    game.playerCards.push(playerCard)
+    game.deck.shift()
+    }else if (game.cpuTurn){
+        //Creates a card for the cpu and adds to to the cpuCards array
+        cpuCard = game.deck[0]
+        cpuCard.setAttribute('class', 'cpu-card')
+        cpuContainer.appendChild(cpuCard)
+        game.cpuCards.push(cpuCard)
+        game.deck.shift()
+    }
+}
+
 
 game.buildDeck()
 game.shuffleDeck(game.deck)
+game.deal()
 game.hit()
 game.stand()
-game.deal()
