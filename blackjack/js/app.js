@@ -7,21 +7,20 @@
     const hitButton = document.querySelector('.hit')
     const standButton = document.querySelector('.stand')
     //creating and setting up cards
-    let playerCard = document.createElement('img')
-    let playerCards = [document.createElement('img'), document.createElement('img')]
-    let cpuCard = document.querySelectorAll('.cpu-card')
-    let cpuCards = [document.createElement('img'),document.createElement('img')]
-    for(let i =0; i < playerCards.length; i++){
-        playerCards[i].setAttribute('class','player-card')
-        playerCards[i].setAttribute('src','./assests/blackjack/cardback1.png' )
-        cpuCards[i].setAttribute('class','cpu-card')
-        cpuCards[i].setAttribute('src','./assests/blackjack/cardback1.png' )
-        console.log(playerCards[i],cpuCards[i])
+//     let playerCard ;
+//     let playerCards = [document.createElement('img'), document.createElement('img')]
+//     let cpuCard ;
+//     let cpuCards = [document.createElement('img'),document.createElement('img')]
+//     for(let i =0; i < playerCards.length; i++){
+//         playerCards[i].setAttribute('class','player-card')
+//         playerCards[i].setAttribute('src','./assests/blackjack/cardback1.png' )
+//         cpuCards[i].setAttribute('class','cpu-card')
+//         cpuCards[i].setAttribute('src','./assests/blackjack/cardback1.png' )
+//         console.log(playerCards[i],cpuCards[i])
 
-    }
-console.log(playerCards)
-playerCard.setAttribute('class','player-card')
-playerCard.setAttribute('src','./assests/blackjack/cardback1.png' )
+//     }
+// console.log(playerCards)
+
 // playerContainer.appendChild(playerCard)
 
 
@@ -33,6 +32,8 @@ let tempCards = []
 
 // Game object 
 let game = {
+    // playerCard: undefined,
+    // cpuCard: undefined,
     playerCards: [],
     cpuCards: [],
     playerTurn: true,
@@ -66,10 +67,12 @@ let game = {
             playerCard = game.deck[0]
             playerCard.setAttribute('class', 'cpu-card')
             playerContainer.appendChild(playerCard)
+            console.log(playerCard)
             game.deck.shift()
             console.log(game.cpuTurn)
             }else if (game.cpuTurn){
                 cpuCard = game.deck[0]
+                console.log(cpuCard)
                 cpuCard.setAttribute('class', 'cpu-card')
                 cpuContainer.appendChild(cpuCard)
                 game.deck.shift()
@@ -89,24 +92,24 @@ let game = {
 function makeCards(suit){
     for(let i=2; i < 15; i++){
         if(i < 11){
-            const deckCard = document.createElement('img');
-            deckCard.setAttribute('value',`${i}`);
-            deckCard.setAttribute('src',`./assests/blackjack/${i}${suit}.png`);
-            game.deck.push(deckCard)
+            const card = document.createElement('img');
+            card.setAttribute('value',`${i}`);
+            card.setAttribute('src',`./assests/blackjack/${i}${suit}.png`);
+            game.deck.push(card)
             console.log()
         }
         else if(i > 10 && i < 14){ 
             // Checks for K,Q,J  and gives them a value of 10
-            const deckCard = document.createElement('img');
-            deckCard.setAttribute('value',`10`);
-            deckCard.setAttribute('src',`./assests/blackjack/${i}${suit}.png`);
-            game.deck.push(deckCard)
+            const card = document.createElement('img');
+            card.setAttribute('value',`10`);
+            card.setAttribute('src',`./assests/blackjack/${i}${suit}.png`);
+            game.deck.push(card)
         } else { 
             // Checks for aces and gives them a value of 11
-            const deckCard = document.createElement('img');
-            deckCard.setAttribute('value',`11`);
-            deckCard.setAttribute('src',`./assests/blackjack/${i}${suit}.png`);
-            game.deck.push(deckCard)
+            const card = document.createElement('img');
+            card.setAttribute('value',`11`);
+            card.setAttribute('src',`./assests/blackjack/${i}${suit}.png`);
+            game.deck.push(card)
         }
     
         
