@@ -6,34 +6,9 @@
     const dealButton = document.querySelector('.deal')
     const hitButton = document.querySelector('.hit')
     const standButton = document.querySelector('.stand')
-    //creating and setting up cards
-//     let playerCard ;
-//     let playerCards = [document.createElement('img'), document.createElement('img')]
-//     let cpuCard ;
-//     let cpuCards = [document.createElement('img'),document.createElement('img')]
-//     for(let i =0; i < playerCards.length; i++){
-//         playerCards[i].setAttribute('class','player-card')
-//         playerCards[i].setAttribute('src','./assests/blackjack/cardback1.png' )
-//         cpuCards[i].setAttribute('class','cpu-card')
-//         cpuCards[i].setAttribute('src','./assests/blackjack/cardback1.png' )
-//         console.log(playerCards[i],cpuCards[i])
-
-//     }
-// console.log(playerCards)
-
-// playerContainer.appendChild(playerCard)
-
-
-
-
-const tempDiv = document.createElement('div')
-let tempCard = document.createElement('img')
-let tempCards = []
 
 // Game object 
 let game = {
-    // playerCard: undefined,
-    // cpuCard: undefined,
     playerCards: [],
     cpuCards: [],
     playerTurn: true,
@@ -64,17 +39,22 @@ let game = {
     hit() {
         hitButton.addEventListener('click', function(){
             if(game.playerTurn){
+                //Creates a card for the player and adds to to the playerCards array
             playerCard = game.deck[0]
             playerCard.setAttribute('class', 'cpu-card')
             playerContainer.appendChild(playerCard)
-            console.log(playerCard)
+            game.playerCards.push(playerCard)
+            console.log(game.playerCards)
             game.deck.shift()
             console.log(game.cpuTurn)
             }else if (game.cpuTurn){
+                //Creates a card for the cpu and adds to to the cpuCards array
                 cpuCard = game.deck[0]
                 console.log(cpuCard)
                 cpuCard.setAttribute('class', 'cpu-card')
                 cpuContainer.appendChild(cpuCard)
+                game.cpuCards.push(cpuCard)
+                console.log(game.cpuCards)
                 game.deck.shift()
             }
         })
@@ -91,6 +71,7 @@ let game = {
 // Creates cards with suit. Suits are labeled (s =spade c=clubs h=heart d=dimond)
 function makeCards(suit){
     for(let i=2; i < 15; i++){
+        // Builds cards 2-10 and sets their value
         if(i < 11){
             const card = document.createElement('img');
             card.setAttribute('value',`${i}`);
@@ -99,13 +80,13 @@ function makeCards(suit){
             console.log()
         }
         else if(i > 10 && i < 14){ 
-            // Checks for K,Q,J  and gives them a value of 10
+            //Builds cards J, Q, K and set their value to 10
             const card = document.createElement('img');
             card.setAttribute('value',`10`);
             card.setAttribute('src',`./assests/blackjack/${i}${suit}.png`);
             game.deck.push(card)
         } else { 
-            // Checks for aces and gives them a value of 11
+            // builds the Ace and sets its value to 11
             const card = document.createElement('img');
             card.setAttribute('value',`11`);
             card.setAttribute('src',`./assests/blackjack/${i}${suit}.png`);
@@ -120,7 +101,6 @@ function makeCards(suit){
 game.buildDeck()
 game.shuffleDeck(game.deck)
 game.hit()
-// game.hit()
 // for(let i=0; i < 52; i++){
 //     console.log(game.deck[i])
 // }
