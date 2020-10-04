@@ -1,28 +1,11 @@
-const clearBtn = document.querySelector('.clear-btn')
-
-const clear = () => {
-    clearBtn.addEventListener("click", function() {
-        console.log("test")
-        playerContainer.innerHTML = ''
-        cpuContainer.innerHTML = ''
-    })
-    // clearBtn.innerHTML = '',
-}
-
-
-
-clear()
-
-
 // Selectors 
     // card elements 
-    const playerContainer = document.querySelector('.card-container-player')
-    const cpuContainer =  document.querySelector('.card-container-cpu')
+const playerContainer = document.querySelector('.card-container-player')
+const cpuContainer =  document.querySelector('.card-container-cpu')
     //buttons
-    const dealButton = document.querySelector('.deal')
-    const hitButton = document.querySelector('.hit')
-    const standButton = document.querySelector('.stand')
-
+const dealButton = document.querySelector('.deal-btn')
+const hitButton = document.querySelector('.hit')
+const standButton = document.querySelector('.stand')
 // Game object 
 let game = {
     playerCards: [],
@@ -52,6 +35,12 @@ let game = {
 
     },
 
+    deal() {
+        dealButton.addEventListener('click', function(){
+            playerContainer.innerHTML = ''
+            cpuContainer.innerHTML = ''
+        })
+    },
     hit() {
         hitButton.addEventListener('click', function(){
             if(game.playerTurn){
@@ -115,3 +104,4 @@ game.buildDeck()
 game.shuffleDeck(game.deck)
 game.hit()
 game.stand()
+game.deal()
