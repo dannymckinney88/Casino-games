@@ -1,0 +1,85 @@
+
+body{
+    background-color: #277714;
+}
+h6 {
+    text-align: end;
+    font-size: 12px;
+}
+
+.card-container{
+    display: flex;
+    justify-content: center;
+    border-radius: 25px;
+    border: 2px solid white;
+    margin: auto;
+    width: 34%;
+}
+
+.player-card {
+    height: 100px;
+    width: 75px;
+    transition: all 0.5s ease-in-out;
+}
+
+.player-card:hover {
+    transform: translateY(5px);
+    transition: all 0.5s ease-in-out;
+  }
+
+.cpu-card {
+    height: 100px;
+    width: 75px;
+    transition: all 0.5s ease-in-out;
+}
+
+.cpu-card:hover {
+    transform: translateY(5px);
+    transition: all 0.5s ease-in-out;
+  }
+  
+
+.card-option {
+    height: 100px;
+    width: 75px;
+    transition: all 0.5s ease-in-out;
+}
+
+
+h1 {
+    text-align: center;
+}
+.card-option-container{
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.ui {
+    padding-top: 25px;
+    display: flex;
+    justify-content: center
+}
+
+.deal {
+    margin-right: 25px;
+    padding: 10px;
+}
+
+.hit{
+    margin-right: 25px;
+    padding: 15px;
+}
+
+.stand {
+    margin-left: 25px;
+}
+
+button{
+    border-radius: 25px;
+    border: 2px solid white;
+}
+
+button:hover{
+    background-color: #fff;
+    color: red;
+}
