@@ -64,9 +64,7 @@ let game = {
             const temp = deck[i]
             deck[i] = deck[j]
             deck[j] = temp
-            
         }
-
     },
     // Gets card to the right player
     getCard(){
@@ -119,12 +117,10 @@ let game = {
             game.playerHasAce = false
             game.switchPlayer()
             game.checkForAceAndCardTotal()
-            game.scoreCheck()
-            // console.log(game.cpuHasAce, game.playerHasAce)
-             
+            game.scoreCheck()             
         })
     },
-    
+
     hit() {
         hitButton.addEventListener('click', function(){
             game.firstDeal = false; 
@@ -186,15 +182,38 @@ let game = {
                 console.log('dealer wins')
             }
         }  //checks score if players turn
+       
         else if(this.playerTurn){
-            if(this.playerTotal > 21){
+                //  Checks for Ace and makes sure it counts as 1 or 11
+            if(this.playerHasAce){
+                if(this.playerTotal >= 21){
+                    this.playerTotal -= 10
+                    if(this.playerTotal >= 21){
+                        console.log('bust')
+                        this.switchPlayer()
+                    }
+                }
+            }
+            else if(this.playerTotal > 21){
                 this.switchPlayer()
                 console.log("player bust")
               
             }
-        } // Checks score if dealer turn
+        } 
+        
+        // Check deals score and if they need to hit
         else if(this.cpuTurn){
-            if(this.cpuTotal < 17){
+                //If dealer has ace make sure to use it as either 1 or 11.
+            if(this.cpuHasAce){
+                if(this.cpuTotal >= 21){
+                    this.cpuTotal -= 10
+                    if(this.cpuTotal >= 21){
+                        console.log('bust')
+                        this.switchPlayer()
+                    }
+                }
+            }
+            else if(this.cpuTotal < 17){
                 // Checking to see if dealer needs to hit
                 console.log('I need to hit')
                 this.getCard()
@@ -207,9 +226,6 @@ let game = {
         this.playerTotal = 0
         this.cpuTotal = 0
     }
-
-
-    
 }
 
 game.buildDeck()
