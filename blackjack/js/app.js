@@ -71,6 +71,8 @@ let game = {
         standButton.addEventListener('click', function(){
             console.log('stand')
             switchPlayer()
+            game.checkBust()
+           
         })
     },
     checkBust() {
@@ -87,13 +89,20 @@ let game = {
 
         }else if(this.cpuTurn){
             for(let i=0; i <this.cpuCards.length; i++ ){
-                // console.log(parseInt(this.cpuCards[i].getAttribute('value')))
+                this.cpuTotal += parseInt(this.cpuCards[i].getAttribute('value'))
+            }if(this.cpuTotal < 17){
+                console.log('I need to hit')
+                getCard()
+            }
+            else if(this.cpuTotal > 21){
+                console.log('cpu bust')
+                this.cpuTurn = false
             }
         }
-        console.log(this.playerTotal)
+        console.log(this.cpuTotal)
         this.playerTotal = 0
         this.cpuTotal = 0
-        console.log(this.playerTotal)
+        console.log(this.cpuTotal)
     }
 }
 // Creates cards with suit. Suits are labeled (s =spade c=clubs h=heart d=dimond)
