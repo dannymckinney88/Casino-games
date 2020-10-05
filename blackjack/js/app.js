@@ -39,10 +39,15 @@ let game = {
 
     deal() {
         dealButton.addEventListener('click', function(){
+
             playerContainer.innerHTML = ''
             cpuContainer.innerHTML = ''
+            game.playerCards = []
+            game.cpuCards = []
             for(let i =0; i < 2; i++){
                 // comme back and figure out how to slow down speed of cards comming out----
+            game.cpuTurn = false;
+            game.playerTurn = true;
             getCard()
             switchPlayer()
             getCard()
@@ -75,12 +80,19 @@ let game = {
                 // console.log(parseInt(this.playerCards[i].getAttribute('value')))
                 this.playerTotal += parseInt(this.playerCards[i].getAttribute('value'))
             }
+            if(this.playerTotal > 21){
+                console.log('bust')
+                switchPlayer()
+            }
 
         }else if(this.cpuTurn){
             for(let i=0; i <this.cpuCards.length; i++ ){
                 // console.log(parseInt(this.cpuCards[i].getAttribute('value')))
             }
         }
+        console.log(this.playerTotal)
+        this.playerTotal = 0
+        this.cpuTotal = 0
         console.log(this.playerTotal)
     }
 }
