@@ -6,7 +6,7 @@ const cpuContainer =  document.querySelector('.card-container-cpu')
 const dealButton = document.querySelector('.deal-btn')
 const hitButton = document.querySelector('.hit')
 const standButton = document.querySelector('.stand')
-// Game object 
+// Game object
 let game = {
     playerCards: [],
     cpuCards: [],
@@ -70,8 +70,6 @@ let game = {
     },
     // Gets card to the right player
     getCard(){
-        console.log('player turn :'  +this.playerTurn)
-        console.log('cpu turn :'  +this.cpuTurn)
         if(this.playerTurn){
             //Creates a card for the player and adds to to the playerCards array
             console.log('test')
@@ -89,6 +87,16 @@ let game = {
             this.deck.shift()
         }
     },
+
+    switchPlayer(){
+        if(this.playerTurn){
+            game.playerTurn = false
+            game.cpuTurn = true
+        }else{
+            this.playerTurn = true
+            this.cpuTurn = false
+        }
+    },
     // Deals the game out and runs some checks for blackjack 
     deal() {
         dealButton.addEventListener('click', function(){
@@ -103,19 +111,18 @@ let game = {
                 game.cpuTurn = false;
                 game.playerTurn = true;
                 game.getCard()
-                switchPlayer()
+                game.switchPlayer()
                 game.getCard()
             }
             //Reseting values 
             game.cpuHasAce = false
             game.playerHasAce = false
-            game.playerTurn = true
-            game.cpuTurn = false
+            game.switchPlayer()
             game.checkForAceAndCardTotal()
+            game.scoreCheck()
             // console.log(game.cpuHasAce, game.playerHasAce)
              
         })
-        console.log(this.playerTurn)
     },
     
     hit() {
@@ -126,6 +133,7 @@ let game = {
             //Checks for bust after hit
             // game.checkBust()
             game.checkForAceAndCardTotal()
+            game.scoreCheck()
             
            
         })
@@ -133,14 +141,12 @@ let game = {
 
     stand(){
         standButton.addEventListener('click', function(){
-            switchPlayer()
-            // game.checkBust()
-            
+            game.switchPlayer()
         })
     },
     
     checkForAceAndCardTotal(){
-        console.log('I hit checkforaces')
+        // console.log('I hit checkforaces')
             // Loops through cards and gets total of both cpu and player
         for(let i=0; i <this.playerCards.length; i++ ){
             // console.log(parseInt(this.playerCards[i].getAttribute('value')))
@@ -164,78 +170,47 @@ let game = {
                 // console.log('dealer: ' + this.cpuHasAce)
             }
         }
-    }
+    },
 
-
-    
-}
-
-// function makeCards(suit){
-    
-// }
-
-function switchPlayer(){
-    game.playerTurn = false
-    game.cpuTurn = true
-}
-
-//Set up and indivdual card to display on screen
-
-// function getCard(){
-//     if(game.playerTurn){
-//         //Creates a card for the player and adds to to the playerCards array
-//     playerCard = game.deck[0]
-//     playerCard.setAttribute('class', 'cpu-card')
-//     playerContainer.appendChild(playerCard)
-//     game.playerCards.push(playerCard)
-//     game.deck.shift()
-//     }else if (game.cpuTurn){
-//         //Creates a card for the cpu and adds to to the cpuCards array
-//         cpuCard = game.deck[0]
-//         cpuCard.setAttribute('class', 'cpu-card')
-//         cpuContainer.appendChild(cpuCard)
-//         game.cpuCards.push(cpuCard)
-//         game.deck.shift()
-//     }
-// }
-
-// Checks total of cards 
-
-function scoreCheck(){
+    scoreCheck(){
   
-    // If it is first deal checks for black jack
-    if(game.firstDeal){
-        console.log(game.playerTotal,game.cpuTotal)
-        if(game.playerTotal ===21 && game.cpuTotal ===21) {
-            console.log('tie')
-        }else if(game.playerTotal ==21){
-            console.log('player wins')
-        }else if(game.cpuTotal ==21){
-            console.log('dealer wins')
+        // If it is first deal checks for black jack
+    
+        if(this.firstDeal){
+            console.log(this.playerTotal,this.cpuTotal)
+            if(this.playerTotal ===21 && this.cpuTotal ===21) {
+                console.log('tie')
+            }else if(this.playerTotal ==21){
+                console.log('player wins')
+            }else if(this.cpuTotal ==21){
+                console.log('dealer wins')
+            }
+        }  //checks score if players turn
+        else if(this.playerTurn){
+            if(this.playerTotal > 21){
+                this.switchPlayer()
+                console.log("player bust")
+              
+            }
+        } // Checks score if dealer turn
+        else if(this.cpuTurn){
+            if(this.cpuTotal < 17){
+                // Checking to see if dealer needs to hit
+                console.log('I need to hit')
+                this.getCard()
+            }
+            else if(this.cpuTotal > 21){
+                console.log('cpu bust')
+                this.cpuTurn = false
+            }
         }
-    }  //checks score if players turn
-    else if(game.playerTurn){
-        if(game.playerTotal > 21){
-            switchPlayer()
-            console.log("player bust")
-          
-        }
-    } // Checks score if dealer turn
-    else if(game.cpuTurn){
-        if(game.cpuTotal < 17){
-            // Checking to see if dealer needs to hit
-            console.log('I need to hit')
-            getCard()
-        }
-        else if(game.cpuTotal > 21){
-            console.log('cpu bust')
-            game.cpuTurn = false
-        }
+        this.playerTotal = 0
+        this.cpuTotal = 0
     }
-    game.playerTotal = 0
-    game.cpuTotal = 0
-}
 
+
+    
+}
 
 game.buildDeck()
 game.shuffleDeck(game.deck)
