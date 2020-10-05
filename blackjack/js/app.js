@@ -19,15 +19,44 @@ let game = {
     cpuHasAce: false,
     
     deck: [],
+    // Creates cards with suit. Suits are labeled (s =spade c=clubs h=heart d=dimond)
+    buildCards(suit){
+        for(let i=2; i < 15; i++){
+            // Builds cards 2-10 and sets their value
+            if(i < 11){
+                const card = document.createElement('img');
+                card.setAttribute('value',`${i}`);
+                card.setAttribute('src',`./assests/blackjack/${i}${suit}.png`);
+                game.deck.push(card)
+                console.log()
+            }
+            else if(i > 10 && i < 14){ 
+                //Builds cards J, Q, K and set their value to 10
+                const card = document.createElement('img');
+                card.setAttribute('value',`10`);
+                card.setAttribute('src',`./assests/blackjack/${i}${suit}.png`);
+                game.deck.push(card)
+            } else { 
+                // builds the Ace and sets its value to 11
+                const card = document.createElement('img');
+                card.setAttribute('value',`11`);
+                card.setAttribute('src',`./assests/blackjack/${i}${suit}.png`);
+                game.deck.push(card)
+            }
+            
+            
+        }
+    },
+    
     // Builds a full 52card deck and puts them in the deck array.
     buildDeck(suit){
-        makeCards('s')
-        makeCards('c')
-        makeCards('h')
-        makeCards('d')
+        this.buildCards('s')
+        this.buildCards('c')
+        this.buildCards('h')
+        this.buildCards('d')
 
     },
-
+    // Shuffles the deck of cards 
     shuffleDeck(deck) {
         for(let i = deck.length -1; i > 0; i--){
             //Shuffling around each index to make sure random everytime.
@@ -39,7 +68,28 @@ let game = {
         }
 
     },
-
+    // Gets card to the right player
+    getCard(){
+        console.log('player turn :'  +this.playerTurn)
+        console.log('cpu turn :'  +this.cpuTurn)
+        if(this.playerTurn){
+            //Creates a card for the player and adds to to the playerCards array
+            console.log('test')
+            playerCard = this.deck[0]
+            playerCard.setAttribute('class', 'cpu-card')
+            playerContainer.appendChild(playerCard)
+            this.playerCards.push(playerCard)
+            this.deck.shift()
+        }else if (this.cpuTurn){
+            //Creates a card for the cpu and adds to to the cpuCards array
+            cpuCard = this.deck[0]
+            cpuCard.setAttribute('class', 'cpu-card')
+            cpuContainer.appendChild(cpuCard)
+            this.cpuCards.push(cpuCard)
+            this.deck.shift()
+        }
+    },
+    // Deals the game out and runs some checks for blackjack 
     deal() {
         dealButton.addEventListener('click', function(){
             game.firstDeal = true
@@ -47,29 +97,35 @@ let game = {
             cpuContainer.innerHTML = ''
             game.playerCards = []
             game.cpuCards = []
+            // dealing cards out switching from player to cpu for visuals
             for(let i =0; i < 2; i++){
-                // comme back and figure out how to slow down speed of cards comming out----
-            game.cpuTurn = false;
-            game.playerTurn = true;
-            getCard()
-            switchPlayer()
-            getCard()
-            game.cpuTurn = false;
-            game.playerTurn = true;
+                    // comme back and figure out how to slow down speed of cards comming out----
+                game.cpuTurn = false;
+                game.playerTurn = true;
+                game.getCard()
+                switchPlayer()
+                game.getCard()
             }
-            game.checkForAce()
-            scoreCheck()
+            //Reseting values 
+            game.cpuHasAce = false
+            game.playerHasAce = false
+            game.playerTurn = true
+            game.cpuTurn = false
+            game.checkForAceAndCardTotal()
+            // console.log(game.cpuHasAce, game.playerHasAce)
              
         })
+        console.log(this.playerTurn)
     },
+    
     hit() {
         hitButton.addEventListener('click', function(){
             game.firstDeal = false; 
             //Grabs current player a card
-            getCard()
+            game.getCard()
             //Checks for bust after hit
             // game.checkBust()
-            scoreCheck()
+            game.checkForAceAndCardTotal()
             
            
         })
@@ -82,63 +138,41 @@ let game = {
             
         })
     },
-    checkForAceAndScore(){
-            // Loops through cards and gets total of but cpu and player
-        const playerParsedNum = parseInt(game.playerCards[i].getAttribute('value'))
-        const cpuParsedNum = parseInt(game.cpuCards[i].getAttribute('value'))
-        for(let i=0; i <game.playerCards.length; i++ ){
+    
+    checkForAceAndCardTotal(){
+        console.log('I hit checkforaces')
+            // Loops through cards and gets total of both cpu and player
+        for(let i=0; i <this.playerCards.length; i++ ){
             // console.log(parseInt(this.playerCards[i].getAttribute('value')))
-            game.playerTotal += playerParsedNum
-            console.log(playerParsedNum)
+            this.playerTotal += parseInt(this.playerCards[i].getAttribute('value'))
+            // console.log(parseInt(this.playerCards[i].getAttribute('value')))
         }
-        for(let i=0; i <game.cpuCards.length; i++ ){
-            game.cpuTotal += cpuParsedNum
-            console.log(cpuParsedNum)
+        for(let i=0; i <this.cpuCards.length; i++ ){
+            this.cpuTotal += parseInt(this.cpuCards[i].getAttribute('value'))
+            // console.log(parseInt(this.cpuCards[i].getAttribute('value')))
         }
 
         for(let i= 0; i < this.playerCards.length; i++){
-            if(this.playerCards[i] ===11){
+            if(parseInt(this.playerCards[i].getAttribute('value')) ===11){
                 this.playerHasAce = true
-                console.log(this.playerHasAce)
+                // console.log('player: ' +this.playerHasAce)
             }
         }
         for(let i= 0; i< this.cpuCards.length; i ++){
-            if(this.cpuCards[i]===11){
-                this.cpuHasAce === true
-                console.log(this.cpuHasAce)
+            if(parseInt(this.cpuCards[i].getAttribute('value')) ===11){
+                this.cpuHasAce = true
+                // console.log('dealer: ' + this.cpuHasAce)
             }
         }
     }
+
+
     
 }
-// Creates cards with suit. Suits are labeled (s =spade c=clubs h=heart d=dimond)
-function makeCards(suit){
-    for(let i=2; i < 15; i++){
-        // Builds cards 2-10 and sets their value
-        if(i < 11){
-            const card = document.createElement('img');
-            card.setAttribute('value',`${i}`);
-            card.setAttribute('src',`./assests/blackjack/${i}${suit}.png`);
-            game.deck.push(card)
-            console.log()
-        }
-        else if(i > 10 && i < 14){ 
-            //Builds cards J, Q, K and set their value to 10
-            const card = document.createElement('img');
-            card.setAttribute('value',`10`);
-            card.setAttribute('src',`./assests/blackjack/${i}${suit}.png`);
-            game.deck.push(card)
-        } else { 
-            // builds the Ace and sets its value to 11
-            const card = document.createElement('img');
-            card.setAttribute('value',`11`);
-            card.setAttribute('src',`./assests/blackjack/${i}${suit}.png`);
-            game.deck.push(card)
-        }
+
+// function makeCards(suit){
     
-        
-    }
-}
+// }
 
 function switchPlayer(){
     game.playerTurn = false
@@ -147,23 +181,23 @@ function switchPlayer(){
 
 //Set up and indivdual card to display on screen
 
-function getCard(){
-    if(game.playerTurn){
-        //Creates a card for the player and adds to to the playerCards array
-    playerCard = game.deck[0]
-    playerCard.setAttribute('class', 'cpu-card')
-    playerContainer.appendChild(playerCard)
-    game.playerCards.push(playerCard)
-    game.deck.shift()
-    }else if (game.cpuTurn){
-        //Creates a card for the cpu and adds to to the cpuCards array
-        cpuCard = game.deck[0]
-        cpuCard.setAttribute('class', 'cpu-card')
-        cpuContainer.appendChild(cpuCard)
-        game.cpuCards.push(cpuCard)
-        game.deck.shift()
-    }
-}
+// function getCard(){
+//     if(game.playerTurn){
+//         //Creates a card for the player and adds to to the playerCards array
+//     playerCard = game.deck[0]
+//     playerCard.setAttribute('class', 'cpu-card')
+//     playerContainer.appendChild(playerCard)
+//     game.playerCards.push(playerCard)
+//     game.deck.shift()
+//     }else if (game.cpuTurn){
+//         //Creates a card for the cpu and adds to to the cpuCards array
+//         cpuCard = game.deck[0]
+//         cpuCard.setAttribute('class', 'cpu-card')
+//         cpuContainer.appendChild(cpuCard)
+//         game.cpuCards.push(cpuCard)
+//         game.deck.shift()
+//     }
+// }
 
 // Checks total of cards 
 
