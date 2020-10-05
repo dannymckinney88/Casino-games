@@ -116,8 +116,7 @@ let game = {
             game.cpuHasAce = false
             game.playerHasAce = false
             game.switchPlayer()
-            game.checkForAceAndCardTotal()
-            game.scoreCheck()             
+            game.checkForWin()            
         })
     },
 
@@ -127,102 +126,91 @@ let game = {
             //Grabs current player a card
             game.getCard()
             //Checks for bust after hit
-            // game.checkBust()
-            game.checkForAceAndCardTotal()
-            game.scoreCheck()
-            
+            game.checkForWin()
+          
            
         })
     },
 
     stand(){
         standButton.addEventListener('click', function(){
+            console.log('hello')
             game.switchPlayer()
+            game.checkForWin()
         })
     },
-    
-    checkForAceAndCardTotal(){
-        // console.log('I hit checkforaces')
-            // Loops through cards and gets total of both cpu and player
+
+    checkForWin(){
+        //    Gets card total of all cards for the player and dealer
         for(let i=0; i <this.playerCards.length; i++ ){
-            // console.log(parseInt(this.playerCards[i].getAttribute('value')))
             this.playerTotal += parseInt(this.playerCards[i].getAttribute('value'))
-            // console.log(parseInt(this.playerCards[i].getAttribute('value')))
+            
         }
         for(let i=0; i <this.cpuCards.length; i++ ){
             this.cpuTotal += parseInt(this.cpuCards[i].getAttribute('value'))
-            // console.log(parseInt(this.cpuCards[i].getAttribute('value')))
+            
         }
-
+        //  Checks for aces for bothe players
         for(let i= 0; i < this.playerCards.length; i++){
             if(parseInt(this.playerCards[i].getAttribute('value')) ===11){
                 this.playerHasAce = true
-                // console.log('player: ' +this.playerHasAce)
+               
             }
         }
         for(let i= 0; i< this.cpuCards.length; i ++){
             if(parseInt(this.cpuCards[i].getAttribute('value')) ===11){
                 this.cpuHasAce = true
-                // console.log('dealer: ' + this.cpuHasAce)
             }
         }
-    },
-
-    scoreCheck(){
-  
-        // If it is first deal checks for black jack
-    
+        //Checks for black jack on inital deal
         if(this.firstDeal){
-            console.log(this.playerTotal,this.cpuTotal)
             if(this.playerTotal ===21 && this.cpuTotal ===21) {
                 console.log('tie')
             }else if(this.playerTotal ==21){
-                console.log('player wins')
+                console.log('player jack')
             }else if(this.cpuTotal ==21){
-                console.log('dealer wins')
+                console.log('dealer blackjack')
             }
-        }  //checks score if players turn
-       
+        }  
+        //checks score if players turn
         else if(this.playerTurn){
-                //  Checks for Ace and makes sure it counts as 1 or 11
-            if(this.playerHasAce){
-                if(this.playerTotal >= 21){
-                    this.playerTotal -= 10
-                    if(this.playerTotal >= 21){
-                        console.log('bust')
-                        this.switchPlayer()
-                    }
-                }
-            }
-            else if(this.playerTotal > 21){
-                this.switchPlayer()
-                console.log("player bust")
-              
-            }
-        } 
-        
-        // Check deals score and if they need to hit
-        else if(this.cpuTurn){
-                //If dealer has ace make sure to use it as either 1 or 11.
             if(this.cpuHasAce){
                 if(this.cpuTotal >= 21){
                     this.cpuTotal -= 10
                     if(this.cpuTotal >= 21){
                         console.log('bust')
-                        this.switchPlayer()
                     }
                 }
             }
+                //  Checks for Ace and makes sure it counts as 1 or 11
+            else if(this.playerTotal > 21){
+                 console.log("player bust")
+              
+            }
+        } 
+        
+        // Check deals score and if they need to hit
+      
+            if(this.cpuTurn){
+                if(this.cpuHasAce){
+                    if(this.cpuTotal >= 21){
+                        this.cpuTotal -= 10
+                        if(this.cpuTotal >= 21){
+                            console.log('bust')
+                        }
+                    }
+                }
+                //If dealer has ace make sure to use it as either 1 or 11.
             else if(this.cpuTotal < 17){
                 // Checking to see if dealer needs to hit
                 console.log('I need to hit')
-                this.getCard()
+                this.hit()
             }
-            else if(this.cpuTotal > 21){
+             else if(this.cpuTotal > 21){
                 console.log('cpu bust')
                 this.cpuTurn = false
             }
-        }
+         }
         this.playerTotal = 0
         this.cpuTotal = 0
     }
