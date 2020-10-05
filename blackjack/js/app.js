@@ -14,6 +14,9 @@ let game = {
     cpuTurn: false,
     playerTotal: 0,
     cpuTotal: 0,
+    firstDeal: false,
+    playerHasAce: false,
+    cpuHasAce: false,
     
     deck: [],
     // Builds a full 52card deck and puts them in the deck array.
@@ -39,7 +42,7 @@ let game = {
 
     deal() {
         dealButton.addEventListener('click', function(){
-
+            game.firstDeal = true
             playerContainer.innerHTML = ''
             cpuContainer.innerHTML = ''
             game.playerCards = []
@@ -54,56 +57,59 @@ let game = {
             game.cpuTurn = false;
             game.playerTurn = true;
             }
-          
-         
+            game.checkForAce()
+            scoreCheck()
+             
         })
     },
     hit() {
         hitButton.addEventListener('click', function(){
+            game.firstDeal = false; 
             //Grabs current player a card
             getCard()
             //Checks for bust after hit
-            game.checkBust()
+            // game.checkBust()
+            scoreCheck()
+            
+           
         })
     },
 
     stand(){
         standButton.addEventListener('click', function(){
-            console.log('stand')
             switchPlayer()
-            game.checkBust()
-           
+            // game.checkBust()
+            
         })
     },
-    checkBust() {
-        let bust = false
-        if(this.playerTurn){
-            for(let i=0; i <this.playerCards.length; i++ ){
-                // console.log(parseInt(this.playerCards[i].getAttribute('value')))
-                this.playerTotal += parseInt(this.playerCards[i].getAttribute('value'))
-            }
-            if(this.playerTotal > 21){
-                console.log('bust')
-                switchPlayer()
-            }
+    checkForAceAndScore(){
+            // Loops through cards and gets total of but cpu and player
+        const playerParsedNum = parseInt(game.playerCards[i].getAttribute('value'))
+        const cpuParsedNum = parseInt(game.cpuCards[i].getAttribute('value'))
+        for(let i=0; i <game.playerCards.length; i++ ){
+            // console.log(parseInt(this.playerCards[i].getAttribute('value')))
+            game.playerTotal += playerParsedNum
+            console.log(playerParsedNum)
+        }
+        for(let i=0; i <game.cpuCards.length; i++ ){
+            game.cpuTotal += cpuParsedNum
+            console.log(cpuParsedNum)
+        }
 
-        }else if(this.cpuTurn){
-            for(let i=0; i <this.cpuCards.length; i++ ){
-                this.cpuTotal += parseInt(this.cpuCards[i].getAttribute('value'))
-            }if(this.cpuTotal < 17){
-                console.log('I need to hit')
-                getCard()
-            }
-            else if(this.cpuTotal > 21){
-                console.log('cpu bust')
-                this.cpuTurn = false
+        for(let i= 0; i < this.playerCards.length; i++){
+            if(this.playerCards[i] ===11){
+                this.playerHasAce = true
+                console.log(this.playerHasAce)
             }
         }
-        console.log(this.cpuTotal)
-        this.playerTotal = 0
-        this.cpuTotal = 0
-        console.log(this.cpuTotal)
+        for(let i= 0; i< this.cpuCards.length; i ++){
+            if(this.cpuCards[i]===11){
+                this.cpuHasAce === true
+                console.log(this.cpuHasAce)
+            }
+        }
     }
+    
 }
 // Creates cards with suit. Suits are labeled (s =spade c=clubs h=heart d=dimond)
 function makeCards(suit){
@@ -139,6 +145,8 @@ function switchPlayer(){
     game.cpuTurn = true
 }
 
+//Set up and indivdual card to display on screen
+
 function getCard(){
     if(game.playerTurn){
         //Creates a card for the player and adds to to the playerCards array
@@ -155,6 +163,43 @@ function getCard(){
         game.cpuCards.push(cpuCard)
         game.deck.shift()
     }
+}
+
+// Checks total of cards 
+
+function scoreCheck(){
+  
+    // If it is first deal checks for black jack
+    if(game.firstDeal){
+        console.log(game.playerTotal,game.cpuTotal)
+        if(game.playerTotal ===21 && game.cpuTotal ===21) {
+            console.log('tie')
+        }else if(game.playerTotal ==21){
+            console.log('player wins')
+        }else if(game.cpuTotal ==21){
+            console.log('dealer wins')
+        }
+    }  //checks score if players turn
+    else if(game.playerTurn){
+        if(game.playerTotal > 21){
+            switchPlayer()
+            console.log("player bust")
+          
+        }
+    } // Checks score if dealer turn
+    else if(game.cpuTurn){
+        if(game.cpuTotal < 17){
+            // Checking to see if dealer needs to hit
+            console.log('I need to hit')
+            getCard()
+        }
+        else if(game.cpuTotal > 21){
+            console.log('cpu bust')
+            game.cpuTurn = false
+        }
+    }
+    game.playerTotal = 0
+    game.cpuTotal = 0
 }
 
 
