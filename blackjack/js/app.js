@@ -6,7 +6,14 @@ const cpuContainer =  document.querySelector('.card-container-cpu')
 const dealButton = document.querySelector('.deal-btn')
 const hitButton = document.querySelector('.hit')
 const standButton = document.querySelector('.stand')
+    //Money
+const playerMoney = document.querySelector('.player-money')
 
+//player Object
+let player = {
+    name: 'danny',
+    money: 100
+}
 // Game object
 let game = {
     playerCards: [],
@@ -87,13 +94,13 @@ let game = {
         // dealing cards out switching from player to cpu for visuals
         for(let i =0; i < 2; i++){
                 // comme back and figure out how to slow down speed of cards comming out----
-            this.switchPlayer()
             playerCard = this.deck[0]
             playerCard.setAttribute('class', 'cpu-card')
             playerContainer.appendChild(playerCard)
             this.playerCards.push(playerCard)
             this.deck.shift()
-            this.switchPlayer()
+            this.playerTurn = false
+            this.cpuTurn = true
             cpuCard = this.deck[0]
             cpuCard.setAttribute('class', 'cpu-card')
             cpuContainer.appendChild(cpuCard)
@@ -104,14 +111,40 @@ let game = {
         this.cpuHasAce = false
         this.playerHasAce = false
         this.playerTurn = true
-        this.checkForWin()  
+        this.cpuTurn = false
         //Turns back on hit button after a bust
         hitButton.disabled = false
+        this.checkForAceAndtotal()
+        this.HasAce()
+        this.checkBlackJack()
+        console.log(this.playerTotal)
+        console.log(this.cpuTotal)
+        this.bet()
+    },
+
+    bet() {
+        player.money -= 5
+        console.log('test'+ player.money)
+        playerMoney.innerHTML = player.money
+    },
+
+    checkBlackJack(){
+        if(this.playerTotal==21 && this.cpuTotal==21){
+            alert('tie')
+            hitButton.disabled = true
+        }
+        else if(this.playerTotal == 21){
+            alert('player win')
+            hitButton.disabled = true
+        }
+        else if(this.cpuTotal == 21){
+            alert('computer wins')
+            hitButton.disabled = true
+        }
     },
 
     hit() {
-    //    this.playerTotal = 0
-    //    this.cpuTotal = 0
+
        game.firstDeal = false; 
        if(this.playerTurn){
         //Creates a card for the player and adds to to the playerCards array
@@ -121,6 +154,7 @@ let game = {
         this.playerCards.push(playerCard)
         this.deck.shift()
         this.checkForAceAndtotal()
+        this.HasAce()
         this.checkPlayerHand()
         this.checkForWin()
       }else if (this.cpuTurn){
@@ -131,6 +165,7 @@ let game = {
         this.cpuCards.push(cpuCard)
         this.deck.shift()
         this.checkForAceAndtotal()
+        this.HasAce()
         this.dealerHit()
         
        }
@@ -138,6 +173,8 @@ let game = {
 
     stand(){
         this.switchPlayer()
+        this.checkForAceAndtotal()
+        this.HasAce()
         this.dealerHit()
         
     },
@@ -158,39 +195,43 @@ let game = {
                     this.cpuHasAce = true
                 }
             }
+            console.log('player: '+this.playerTotal)
+            console.log('cpu: '+this.cpuTotal)
     },
     
-    ifHasAce(){
+    HasAce(){
          if(this.playerHasAce){
-            if(this.playerTotal >= 21){
+            if(this.playerTotal >= 22){
+                console.log('this play has ace:'+this.playerHasAce)
                 this.playerTotal -= 10
                 this.playerHasAce = false
+                console.log('this play has ace after:'+this.playerHasAce)
                 for(let i=0; i< this.playerCards.length; i++){
-                    console.log('in loop')
                     if(parseInt(this.playerCards[i].getAttribute('value')) ===11){
                         this.playerCards[i].setAttribute('value', 1)
                         console.log(this.playerCards[i].getAttribute('value'))
                     }
                 }
-                if(this.cpuTotal >= 21){
-                    // hitButton.disabled = true
-                    console.log('bust with ace')
+                if(this.cpuTotal >= 22){
+                   this.playerBusted = true
                 }
             }
         }
 
         if(this.cpuHasAce){
-            if(this.cpuTotal >= 21){
+            if(this.cpuTotal >= 22){
+                console.log('Dealer has ace:'+this.cpuHasAce)
                 this.cpuTotal -= 10
                 this.cpuHasAce = false
+                console.log('Dealer has ace after:'+this.cpuHasAce)
                 for(let i=0; i< this.cpuCards.length; i++){
-                    console.log('in loop')
+                    // console.log('in loop')
                     if(parseInt(this.cpuCards[i].getAttribute('value')) ===11){
                         this.cpuCards[i].setAttribute('value', 1)
-                        console.log(this.cpuCards[i].getAttribute('value'))
+                        // console.log(this.cpuCards[i].getAttribute('value'))
                     }
                 }
-                if(this.cpuTotal >= 21){
+                if(this.cpuTotal >= 22){
                     // hitButton.disabled = true
                     console.log('bust with ace')
                 }
@@ -198,15 +239,11 @@ let game = {
         }
         
     },
-  
-
-   
 
     checkPlayerHand(){
-        console.log('playerfunc')
         if(this.playerTurn){
             //  Checks for Ace and makes sure it counts as 1 or 11
-             if(this.playerTotal > 21){
+             if(this.playerTotal > 22){
                 console.log(this.playerTotal)
                 hitButton.disabled = true
                 console.log("player bust")
@@ -224,7 +261,7 @@ let game = {
                     console.log(this.cpuTotal)
                 // Checking to see if dealer needs to hit
             }
-            else if(this.cpuTotal > 21){
+            else if(this.cpuTotal > 22){
                 console.log(this.cpuTotal)
                 hitButton.disabled = true
                 console.log("Dealer bust")
@@ -232,28 +269,7 @@ let game = {
         }
     },
     checkForWin(){
-        //    Gets card total of all cards for the player and dealer
-        // console.log('players turn:' + this.playerTurn)
-        // console.log('cpu turn:' + this.cpuTurn)
-        // console.log('player has ace: '+this.playerHasAce)
-        
-    
-        //Checks for black jack on inital deal
-        
-            // if(this.firstDeal){
-            // if(this.playerTotal ===21 && this.cpuTotal ===21) {
-            //     console.log('tie')
-            //     }else if(this.playerTotal ==21){
-            //         console.log('player jack')
-            //     }else if(this.cpuTotal ==21){
-            //         console.log('dealer blackjack')
-            //     }
-            // }
-            //checks score if players turn
-          
-          
-            // Check deals score and if they need to hit
-            
+      
             
         }
     }
@@ -271,7 +287,7 @@ dealButton.addEventListener('click', function(){
 
 hitButton.addEventListener('click', function(){
     game.hit()
-    console.log(game.cpuTurn)
+    console.log('Player total: '+ game.playerTotal)
 })
 
 standButton.addEventListener('click', function(){
