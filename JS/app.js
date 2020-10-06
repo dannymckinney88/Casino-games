@@ -43,7 +43,7 @@ let game = {
             if(i < 11){
                 const card = document.createElement('img');
                 card.setAttribute('value',`${i}`);
-                card.setAttribute('src',`../assests/blackjack/${i}${suit}.png`);
+                card.setAttribute('src',`./assests/blackjack/${i}${suit}.png`);
                 game.deck.push(card)
                 console.log()
             }
@@ -51,13 +51,13 @@ let game = {
                 //Builds cards J, Q, K and set their value to 10
                 const card = document.createElement('img');
                 card.setAttribute('value',`10`);
-                card.setAttribute('src',`../assests/blackjack/${i}${suit}.png`);
+                card.setAttribute('src',`./assests/blackjack/${i}${suit}.png`);
                 game.deck.push(card)
             } else { 
                 // builds the Ace and sets its value to 11
                 const card = document.createElement('img');
                 card.setAttribute('value',`11`);
-                card.setAttribute('src',`../assests/blackjack/${i}${suit}.png`);
+                card.setAttribute('src',`./assests/blackjack/${i}${suit}.png`);
                 game.deck.push(card)
             }
             
@@ -187,6 +187,7 @@ let game = {
         this.checkForAceAndtotal()
         this.HasAce()
         this.dealerHit()
+        this.checkForWin()
         
     },
     // Checks to see if either player has an Ace and counts card total
@@ -269,40 +270,27 @@ let game = {
     //  Checks all win condtions 
     checkForWin(){
             //  Checks for Ace and makes sure it counts as 1 or 11
-                if(this.playerTotal > 22){
+                if(this.playerTotal > 21){
                 console.log(this.playerTotal)
                 hitButton.disabled = true
                 winnerText.innerHTML = "You bust"
-                modal.style.display = "block"
-                // setInterval(() =>{
-                //     modal.style.display = "none"
-                // },3000)
-                
+                modal.style.display = "block"         
             }
                 if(this.cpuTotal > 21){
                     console.log(this.cpuTotal)
                     hitButton.disabled = true
                     winnerText.innerHTML = "Dealer bust"
                     modal.style.display = "block"
-                    // setInterval(() =>{
-                    //     modal.style.display = "none"
-                    // },3000)
                 }
                 if(this.cpuQualify){
                     if(this.playerTotal > this.cpuTotal){
                         hitButton.disabled = true
                         winnerText.innerHTML = "YOU WIN!!!!!"
                         modal.style.display = "block"
-                        // setInterval(() =>{
-                        //     modal.style.display = "none"
-                        // },3000)
                     }else{
                         hitButton.disabled = true
                         winnerText.innerHTML = "The house wins"
                         modal.style.display = "block"
-                        // setInterval(() =>{
-                        //     modal.style.display = "none"
-                        // },3000)
                     }
                     this.cpuQualify = false;
                 }
@@ -325,6 +313,7 @@ dealButton.addEventListener('click', ()=>{
 
 hitButton.addEventListener('click', ()=>{
     game.hit()
+    game.checkForWin()
     // console.log('Player total: '+ game.playerTotal)
 })
 
