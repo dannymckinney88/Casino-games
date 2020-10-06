@@ -1,10 +1,22 @@
 /* BlackJack styles */
 
 body{
-    background-color: #277714;
-    margin: 0;
-    padding: 0;
+    background-color:white;
+    /* margin: 0;
+    padding: 0; */
+    /* height: 100vh; */
 }
+
+.menu-container,.div2,.header-container,.right-side,.left-side{
+    background-color:#F7EF99;
+}
+
+
+
+.game-container{
+    background-color: #ABE188;
+}
+
 h6 {
     text-align: end;
     font-size: 12px;
@@ -27,7 +39,7 @@ h6 {
     border: 2px solid white;
     margin: auto;
     width: 34%;
-    height: 100px;
+    height:100px;
 }
 
 .player-card {
@@ -75,7 +87,7 @@ h1 {
 
 .ui {
     display: flex;
-    justify-content: center
+    justify-content: center;
 }
 
 .deal-btn {
@@ -86,6 +98,7 @@ h1 {
 .hit{
     margin-right: 25px;
     padding: 15px;
+    /* margin-bottom: 50px; */
 }
 
 .stand {
@@ -93,6 +106,8 @@ h1 {
 }
 
 button{
+    color: whitesmoke;
+    background-color: #A41623;
     border-radius: 25px;
     border: 2px solid white;
     border-radius: 50%;
@@ -100,13 +115,14 @@ button{
 }
 
 button:hover{
-    background-color: #fff;
+    background-color: black;
     color: red;
   
 }
 
 .player-money {
     text-align: center;
+    color: #fefefe;
 }
   
   /* Modal Content */
@@ -152,10 +168,8 @@ button:hover{
     .right-side { grid-area: 2 / 3 / 4 / 4; }
     .game-hud-container { grid-area: 3 / 2 / 4 / 3; }
 
-    .menu-container,.div2,.header-container,.right-side,.game-hud-container{
-        background-color:black;
-    }
+   
 
-    .left-side{
-        background-color:black;
+    .grid{
+        height: 90vh;
     }

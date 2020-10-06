@@ -33,6 +33,7 @@ let game = {
     firstDeal: true,
     playerHasAce: false,
     cpuHasAce: false,
+    cpuBust: true,
     
     deck: [],
     // Creates cards with suit. Suits are labeled (s =spade c=clubs h=heart d=dimond)
@@ -122,22 +123,34 @@ let game = {
     bet() {
         player.money -= 5
         console.log('test'+ player.money)
-        playerMoney.innerHTML = player.money
+        playerMoney.innerHTML = '$'+player.money
     },
 
     checkBlackJack(){
         //Checking if either both or just one player has black jack
         if(this.playerTotal==21 && this.cpuTotal==21){
-            alert('tie')
             hitButton.disabled = true
+            winnerText.innerHTML = "You push"
+                modal.style.display = "block"
+                setInterval(() =>{
+                    modal.style.display = "none"
+                },2000)
         }
         else if(this.playerTotal == 21){
-            alert('player win')
             hitButton.disabled = true
+            winnerText.innerHTML = "Winner Winner Chicken Dinner"
+                modal.style.display = "block"
+                setInterval(() =>{
+                    modal.style.display = "none"
+                },2000)
         }
         else if(this.cpuTotal == 21){
-            alert('computer wins')
             hitButton.disabled = true
+            winnerText.innerHTML = "You Dealer Wins"
+                modal.style.display = "block"
+                setInterval(() =>{
+                    modal.style.display = "none"
+                },2000)
         }
     },
 
@@ -172,7 +185,7 @@ let game = {
         this.cpuTurn = true
         this.checkForAceAndtotal()
         this.HasAce()
-        this.checkForWin()
+        this.dealerHit()
         
     },
     checkForAceAndtotal() {
@@ -234,9 +247,26 @@ let game = {
         
     },
 
+    dealerHit(){
+        if(this.cpuTurn){
+            console.log('test')
+            while(this.cpuTotal < 17){
+                    console.log('I need to hit')
+                    this.hit()
+                    this.checkForAceAndtotal()
+                    //Checks if dealer bust
+                    if(this.cpuTotal <= 21 && this.cpuTotal >=17){
+                        this.cpuBust = false;
+                        console.log(this.cpuTotal, this.cpuBust)
+                    }
+                // Checking to see if dealer needs to hit
+            }
+    }
+},
+
     checkForWin(){
             //  Checks for Ace and makes sure it counts as 1 or 11
-             if(this.playerTotal > 22){
+                if(this.playerTotal > 22){
                 console.log(this.playerTotal)
                 hitButton.disabled = true
                 winnerText.innerHTML = "You bust"
@@ -244,18 +274,9 @@ let game = {
                 setInterval(() =>{
                     modal.style.display = "none"
                 },2000)
-                console.log('modal not working')
                 
             }
-            if(this.cpuTurn){
-                console.log('test')
-                if(this.cpuTotal < 17){
-                        console.log('I need to hit')
-                        this.hit()
-                        console.log(this.cpuTotal)
-                    // Checking to see if dealer needs to hit
-                }
-                else if(this.cpuTotal > 22){
+                if(this.cpuTotal > 21){
                     console.log(this.cpuTotal)
                     hitButton.disabled = true
                     winnerText.innerHTML = "Dealer bust"
@@ -264,13 +285,15 @@ let game = {
                         modal.style.display = "none"
                     },2000)
                 }
-            }
-         
+                if(!this.cpuTotal){
+                    if(this.playerTotal > this.cpuTotal){
+
+                    }
+                }
+       }
             
        
     }
-}
-
     //Sets up decks
 game.buildDeck()
 game.shuffleDeck(game.deck)
@@ -295,10 +318,6 @@ standButton.addEventListener('click', ()=>{
 
 
 
-// // When the user clicks the button, open the modal 
-// dealButton.onclick = function() {
-
-// }
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
