@@ -88,7 +88,7 @@ let game = {
         for(let i =0; i < 2; i++){
                 // comme back and figure out how to slow down speed of cards comming out----
             playerCard = this.deck[0]
-            playerCard.setAttribute('class', 'cpu-card')
+            playerCard.setAttribute('class', 'player-card')
             playerContainer.appendChild(playerCard)
             this.playerCards.push(playerCard)
             this.deck.shift()
@@ -109,8 +109,8 @@ let game = {
         // Checking for black Jack
         this.checkForAceAndtotal()
         this.checkBlackJack()
-        
     },
+        
 
     bet() {
         player.money -= 5
@@ -263,7 +263,10 @@ game.checkForWin()
      
 // Event listeners
 dealButton.addEventListener('click', function(){
-    game.deal()
+
+        game.deal()
+        
+
     
 })
 
