@@ -160,6 +160,44 @@ let game = {
             }
     },
     
+    ifHasAce(){
+         if(this.playerHasAce){
+            if(this.playerTotal >= 21){
+                this.playerTotal -= 10
+                this.playerHasAce = false
+                for(let i=0; i< this.playerCards.length; i++){
+                    console.log('in loop')
+                    if(parseInt(this.playerCards[i].getAttribute('value')) ===11){
+                        this.playerCards[i].setAttribute('value', 1)
+                        console.log(this.playerCards[i].getAttribute('value'))
+                    }
+                }
+                if(this.cpuTotal >= 21){
+                    // hitButton.disabled = true
+                    console.log('bust with ace')
+                }
+            }
+        }
+
+        if(this.cpuHasAce){
+            if(this.cpuTotal >= 21){
+                this.cpuTotal -= 10
+                this.cpuHasAce = false
+                for(let i=0; i< this.cpuCards.length; i++){
+                    console.log('in loop')
+                    if(parseInt(this.cpuCards[i].getAttribute('value')) ===11){
+                        this.cpuCards[i].setAttribute('value', 1)
+                        console.log(this.cpuCards[i].getAttribute('value'))
+                    }
+                }
+                if(this.cpuTotal >= 21){
+                    // hitButton.disabled = true
+                    console.log('bust with ace')
+                }
+            }
+        }
+        
+    },
   
 
    
@@ -167,25 +205,8 @@ let game = {
     checkPlayerHand(){
         console.log('playerfunc')
         if(this.playerTurn){
-            if(this.playerHasAce){
-                if(this.playerTotal >= 21){
-                    this.playerTotal -= 10
-                    this.playerHasAce = false
-                    for(let i=0; i< this.playerCards.length; i++){
-                        console.log('in loop')
-                        if(parseInt(this.playerCards[i].getAttribute('value')) ===11){
-                            this.playerCards[i].setAttribute('value', 1)
-                            console.log(this.playerCards[i].getAttribute('value'))
-                        }
-                    }
-                    if(this.cpuTotal >= 21){
-                        // hitButton.disabled = true
-                        console.log('bust with ace')
-                    }
-                }
-            }
             //  Checks for Ace and makes sure it counts as 1 or 11
-            else if(this.playerTotal > 21){
+             if(this.playerTotal > 21){
                 console.log(this.playerTotal)
                 hitButton.disabled = true
                 console.log("player bust")
@@ -197,38 +218,17 @@ let game = {
     dealerHit(){
         if(this.cpuTurn){
             console.log('test')
-            if(this.cpuHasAce){
-                if(this.cpuTotal >= 21){
-                    this.cpuTotal -= 10
-                    this.cpuHasAce = false
-                    for(let i=0; i< this.cpuCards.length; i++){
-                        console.log('in loop')
-                        if(parseInt(this.cpuCards[i].getAttribute('value')) ===11){
-                            this.cpuCards[i].setAttribute('value', 1)
-                            console.log(this.cpuCards[i].getAttribute('value'))
-                        }
-                    }
-                    if(this.cpuTotal >= 21){
-                        // hitButton.disabled = true
-                        console.log('bust with ace')
-                    }
-                }
-            }
-          
             if(this.cpuTotal < 17){
+                    console.log('I need to hit')
+                    this.hit()
+                    console.log(this.cpuTotal)
                 // Checking to see if dealer needs to hit
-                console.log('I need to hit')
-                this.hit()
-                console.log(this.cpuTotal)
             }
             else if(this.cpuTotal > 21){
                 console.log(this.cpuTotal)
                 hitButton.disabled = true
                 console.log("Dealer bust")
-                
             }
-        
-            
         }
     },
     checkForWin(){
