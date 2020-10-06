@@ -35,7 +35,7 @@ let game = {
             if(i < 11){
                 const card = document.createElement('img');
                 card.setAttribute('value',`${i}`);
-                card.setAttribute('src',`./assests/blackjack/${i}${suit}.png`);
+                card.setAttribute('src',`../assests/blackjack/${i}${suit}.png`);
                 game.deck.push(card)
                 console.log()
             }
@@ -43,13 +43,13 @@ let game = {
                 //Builds cards J, Q, K and set their value to 10
                 const card = document.createElement('img');
                 card.setAttribute('value',`10`);
-                card.setAttribute('src',`./assests/blackjack/${i}${suit}.png`);
+                card.setAttribute('src',`../assests/blackjack/${i}${suit}.png`);
                 game.deck.push(card)
             } else { 
                 // builds the Ace and sets its value to 11
                 const card = document.createElement('img');
                 card.setAttribute('value',`11`);
-                card.setAttribute('src',`./assests/blackjack/${i}${suit}.png`);
+                card.setAttribute('src',`../assests/blackjack/${i}${suit}.png`);
                 game.deck.push(card)
             }
             
@@ -228,34 +228,6 @@ let game = {
         
     },
 
-    // checkPlayeyBust(){
-    //     if(this.playerTurn){
-    //         //  Checks for Ace and makes sure it counts as 1 or 11
-    //          if(this.playerTotal > 22){
-    //             console.log(this.playerTotal)
-    //             hitButton.disabled = true
-    //             console.log("player bust")
-                
-    //         }
-    //     } 
-    // },
-
-    // dealerHit(){
-    //     if(this.cpuTurn){
-    //         console.log('test')
-    //         if(this.cpuTotal < 17){
-    //                 console.log('I need to hit')
-    //                 this.hit()
-    //                 console.log(this.cpuTotal)
-    //             // Checking to see if dealer needs to hit
-    //         }
-    //         else if(this.cpuTotal > 22){
-    //             console.log(this.cpuTotal)
-    //             hitButton.disabled = true
-    //             console.log("Dealer bust")
-    //         }
-    //     }
-    // },
     checkForWin(){
             //  Checks for Ace and makes sure it counts as 1 or 11
              if(this.playerTotal > 22){

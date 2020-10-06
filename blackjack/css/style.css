@@ -1,5 +1,10 @@
+/* Landing page styles */
 
-body{
+
+
+/* BlackJack styles */
+
+.blackjack{
     background-color: #277714;
 }
 h6 {
@@ -75,8 +80,8 @@ h1 {
     justify-content: center
 }
 
-.deal {
-    margin-right: 25px;
+.deal-btn {
+    margin-right: 40px;
     padding: 10px;
 }
 
@@ -92,9 +97,16 @@ h1 {
 button{
     border-radius: 25px;
     border: 2px solid white;
+    border-radius: 50%;
+    
 }
 
 button:hover{
     background-color: #fff;
     color: red;
+  
+}
+
+.player-money {
+    text-align: center;
 }
