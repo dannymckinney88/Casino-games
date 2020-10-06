@@ -22,9 +22,61 @@ let player = {
     money: 100
 }
 class Casino  {
-    constructor(){
+    constructor(name,playerCredit){
+        this.name = name
+        this.playerCredit = playerCredit
+    }
+    // Creates cards with suit. Suits are labeled (s =spade c=clubs h=heart d=dimond)
+    buildCards(suit){
+        for(let i=2; i < 15; i++){
+            // Builds cards 2-10 and sets their value
+            if(i < 11){
+                const card = document.createElement('img');
+                card.setAttribute('value',i)
+                card.setAttribute('src',`./assests/blackjack/${i}${suit}.png`);
+                game.deck.push(card)
+                console.log()
+            }
+            else if(i > 10 && i < 14){ 
+                //Builds cards J, Q, K and set their value to 10
+                const card = document.createElement('img');
+                card.setAttribute('value',`10`);
+                card.setAttribute('src',`./assests/blackjack/${i}${suit}.png`);
+                game.deck.push(card)
+            } else { 
+                // builds the Ace and sets its value to 11
+                const card = document.createElement('img');
+                card.setAttribute('value',`11`);
+                card.setAttribute('src',`./assests/blackjack/${i}${suit}.png`);
+                game.deck.push(card)
+            }
+            
+            
+        }
+    }
+      // Builds a full 52card deck and puts them in the deck array.
+      buildDeck(suit){
+        this.buildCards('s')
+        this.buildCards('c')
+        this.buildCards('h')
+        this.buildCards('d')
 
     }
+    // Shuffles the deck of cards 
+    shuffleDeck(deck) {
+        for(let i = deck.length -1; i > 0; i--){
+            //Shuffling around each index to make sure random everytime.
+            const j = Math.floor(Math.random() * i)
+            const temp = deck[i]
+            deck[i] = deck[j]
+            deck[j] = temp
+        }
+    }
+
+}
+
+class BlackJack extends Casino {
+
 }
 
 // Game object
@@ -47,7 +99,7 @@ let game = {
             // Builds cards 2-10 and sets their value
             if(i < 11){
                 const card = document.createElement('img');
-                card.setAttribute('value',`${i}`);
+                card.setAttribute('value',i)
                 card.setAttribute('src',`./assests/blackjack/${i}${suit}.png`);
                 game.deck.push(card)
                 console.log()
@@ -323,29 +375,14 @@ standButton.addEventListener('click', ()=>{
 })
 
 
-
-
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
   modal.style.display = "none";
 }
 
-// When the user clicks anywhere on the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
-
-for(let i=0; i<=100; i++){
-    if(i % 3 ==0 && i %5 ==0){
-        console.log(i+':Fizz')
-    }
-    else if(i % 5==0){
-        console.log(i+':buzz')
-    }else if(i %3 ==0){
-        console.log(i+':Frizzbizz')
-    }else{
-        console.log(i)
-    }
-}
+// When the user clicks anywhere on the window, close it
+// window.onclick = function(event) {
+//   if (event.target == modal) {
+//     modal.style.display = "none";
+//   }
+// }
