@@ -1,11 +1,9 @@
-/* Landing page styles */
-
-
-
 /* BlackJack styles */
 
 body{
     background-color: #277714;
+    margin: 0;
+    padding: 0;
 }
 h6 {
     text-align: end;
@@ -18,6 +16,7 @@ h6 {
     border-radius: 25px;
     border: 2px solid white;
     margin: auto;
+    margin-top: 100px;
     width: 34%;
     height: 100px;
 }
@@ -75,7 +74,6 @@ h1 {
 }
 
 .ui {
-    padding-top: 25px;
     display: flex;
     justify-content: center
 }
@@ -110,3 +108,54 @@ button:hover{
 .player-money {
     text-align: center;
 }
+  
+  /* Modal Content */
+  .modal-content {
+    display: none;
+    background-color: #fefefe;
+    z-index: 1;
+    margin: auto;
+    margin-bottom: 10px;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+  }
+  
+  /* The Close Button */
+  .close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 15% 1fr 15%;
+    grid-template-rows: 15% 1fr 15%;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    }
+    
+    .menu-container { grid-area: 1 / 1 / 2 / 2; }
+    .div2 { grid-area: 1 / 3 / 2 / 4; }
+    .header-container { grid-area: 1 / 2 / 2 / 3; }
+    .game-container { grid-area: 2 / 2 / 3 / 3; }
+    .left-side { grid-area: 2 / 1 / 4 / 2; }
+    .right-side { grid-area: 2 / 3 / 4 / 4; }
+    .game-hud-container { grid-area: 3 / 2 / 4 / 3; }
+
+    .menu-container,.div2,.header-container,.right-side,.game-hud-container{
+        background-color:black;
+    }
+
+    .left-side{
+        background-color:black;
+    }

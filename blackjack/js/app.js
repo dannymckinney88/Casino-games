@@ -6,8 +6,15 @@ const cpuContainer =  document.querySelector('.card-container-cpu')
 const dealButton = document.querySelector('.deal-btn')
 const hitButton = document.querySelector('.hit')
 const standButton = document.querySelector('.stand')
+const blackJackButton = document.querySelector('.blackjack-btn')
+const playerName = document.querySelector('.player-name')
     //Money
 const playerMoney = document.querySelector('.player-money')
+    //Modals
+const modal = document.querySelector(".modal-content");
+const span = document.getElementsByClassName("close")[0];
+const winnerText = document.querySelector('.winner-text')
+
 
 //player Object
 let player = {
@@ -145,7 +152,6 @@ let game = {
         this.deck.shift()
         this.checkForAceAndtotal()
         this.HasAce()
-        // this.checkPlayeyBust()
         this.checkForWin()
       }else if (this.cpuTurn){
         //Creates a card for the dealer and adds to to the cpuCards array
@@ -233,7 +239,12 @@ let game = {
              if(this.playerTotal > 22){
                 console.log(this.playerTotal)
                 hitButton.disabled = true
-                console.log("player bust")
+                winnerText.innerHTML = "You bust"
+                modal.style.display = "block"
+                setInterval(() =>{
+                    modal.style.display = "none"
+                },2000)
+                console.log('modal not working')
                 
             }
             if(this.cpuTurn){
@@ -247,7 +258,11 @@ let game = {
                 else if(this.cpuTotal > 22){
                     console.log(this.cpuTotal)
                     hitButton.disabled = true
-                    console.log("Dealer bust")
+                    winnerText.innerHTML = "Dealer bust"
+                    modal.style.display = "block"
+                    setInterval(() =>{
+                        modal.style.display = "none"
+                    },2000)
                 }
             }
          
@@ -262,19 +277,37 @@ game.shuffleDeck(game.deck)
 game.checkForWin()
      
 // Event listeners
-dealButton.addEventListener('click', function(){
-
+dealButton.addEventListener('click', ()=>{
         game.deal()
-        
+    
 
     
 })
 
-hitButton.addEventListener('click', function(){
+hitButton.addEventListener('click', ()=>{
     game.hit()
-    console.log('Player total: '+ game.playerTotal)
+    // console.log('Player total: '+ game.playerTotal)
 })
 
-standButton.addEventListener('click', function(){
+standButton.addEventListener('click', ()=>{
     game.stand()
 })
+
+
+
+// // When the user clicks the button, open the modal 
+// dealButton.onclick = function() {
+
+// }
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere on the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
