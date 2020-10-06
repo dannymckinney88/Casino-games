@@ -21,6 +21,11 @@ let player = {
     name: 'danny',
     money: 100
 }
+class Casino  {
+    constructor(){
+
+    }
+}
 
 // Game object
 let game = {
@@ -132,26 +137,17 @@ let game = {
         if(this.playerTotal==21 && this.cpuTotal==21){
             hitButton.disabled = true
             winnerText.innerHTML = "You push"
-                modal.style.display = "block"
-                setInterval(() =>{
-                    modal.style.display = "none"
-                },2000)
+            modal.style.display = "block"
         }
         else if(this.playerTotal == 21){
             hitButton.disabled = true
             winnerText.innerHTML = "Winner Winner Chicken Dinner"
-                modal.style.display = "block"
-                setInterval(() =>{
-                    modal.style.display = "none"
-                },2000)
+            modal.style.display = "block"
         }
         else if(this.cpuTotal == 21){
             hitButton.disabled = true
             winnerText.innerHTML = "You Dealer Wins"
-                modal.style.display = "block"
-                setInterval(() =>{
-                    modal.style.display = "none"
-                },2000)
+            modal.style.display = "block"
         }
     },
     //Lets the player and dealer hit
@@ -265,6 +261,11 @@ let game = {
                     this.checkForWin()
                 // Checking to see if dealer needs to hit
             }
+            if(this.cpuTotal <= 21 && this.cpuTotal >=17){
+                this.cpuQualify = true;
+                console.log(this.cpuTotal, this.cpuQualify)
+            }
+            this.checkForWin()
     }
 },
     //  Checks all win condtions 
@@ -334,4 +335,17 @@ window.onclick = function(event) {
   if (event.target == modal) {
     modal.style.display = "none";
   }
+}
+
+for(let i=0; i<=100; i++){
+    if(i % 3 ==0 && i %5 ==0){
+        console.log(i+':Fizz')
+    }
+    else if(i % 5==0){
+        console.log(i+':buzz')
+    }else if(i %3 ==0){
+        console.log(i+':Frizzbizz')
+    }else{
+        console.log(i)
+    }
 }
