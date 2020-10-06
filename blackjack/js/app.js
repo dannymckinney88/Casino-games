@@ -33,7 +33,7 @@ let game = {
     firstDeal: true,
     playerHasAce: false,
     cpuHasAce: false,
-    cpuBust: true,
+    cpuQualify: false,
     
     deck: [],
     // Creates cards with suit. Suits are labeled (s =spade c=clubs h=heart d=dimond)
@@ -86,6 +86,7 @@ let game = {
     // Deals the game out and runs some checks for blackjack 
     deal() {
         //setting intiall values and resetting board
+        modal.style.display = "none"
         this.firstDeal = true
         playerContainer.innerHTML = ''
         cpuContainer.innerHTML = ''
@@ -119,13 +120,13 @@ let game = {
         this.checkBlackJack()
     },
         
-
+    // Tracks your money
     bet() {
         player.money -= 5
         console.log('test'+ player.money)
         playerMoney.innerHTML = '$'+player.money
     },
-
+    // Checks for blackjac after intialll deal
     checkBlackJack(){
         //Checking if either both or just one player has black jack
         if(this.playerTotal==21 && this.cpuTotal==21){
@@ -153,7 +154,7 @@ let game = {
                 },2000)
         }
     },
-
+    //Lets the player and dealer hit
     hit() {
         //Checks which players turn it is and then gives card to correct player
        if(this.playerTurn){
@@ -179,7 +180,7 @@ let game = {
         
        }
     },
-
+    // Stops players turn and switches to dealer.
     stand(){
         this.playerTurn = false
         this.cpuTurn = true
@@ -188,6 +189,7 @@ let game = {
         this.dealerHit()
         
     },
+    // Checks to see if either player has an Ace and counts card total
     checkForAceAndtotal() {
             this.playerTotal = 0
             this.cpuTotal = 0
@@ -206,7 +208,7 @@ let game = {
                 }
             }
     },
-    
+    //  After getting totall checks logic for ace cards if any are out
     HasAce(){
         //    Makes sure that an ace can either be 11 or 1
          if(this.playerHasAce){
@@ -246,7 +248,7 @@ let game = {
         }
         
     },
-
+    // If player stands this has dealer player by itself
     dealerHit(){
         if(this.cpuTurn){
             console.log('test')
@@ -256,14 +258,15 @@ let game = {
                     this.checkForAceAndtotal()
                     //Checks if dealer bust
                     if(this.cpuTotal <= 21 && this.cpuTotal >=17){
-                        this.cpuBust = false;
-                        console.log(this.cpuTotal, this.cpuBust)
+                        this.cpuQualify = true;
+                        console.log(this.cpuTotal, this.cpuQualify)
                     }
+                    this.checkForWin()
                 // Checking to see if dealer needs to hit
             }
     }
 },
-
+    //  Checks all win condtions 
     checkForWin(){
             //  Checks for Ace and makes sure it counts as 1 or 11
                 if(this.playerTotal > 22){
@@ -271,9 +274,9 @@ let game = {
                 hitButton.disabled = true
                 winnerText.innerHTML = "You bust"
                 modal.style.display = "block"
-                setInterval(() =>{
-                    modal.style.display = "none"
-                },2000)
+                // setInterval(() =>{
+                //     modal.style.display = "none"
+                // },3000)
                 
             }
                 if(this.cpuTotal > 21){
@@ -281,14 +284,27 @@ let game = {
                     hitButton.disabled = true
                     winnerText.innerHTML = "Dealer bust"
                     modal.style.display = "block"
-                    setInterval(() =>{
-                        modal.style.display = "none"
-                    },2000)
+                    // setInterval(() =>{
+                    //     modal.style.display = "none"
+                    // },3000)
                 }
-                if(!this.cpuTotal){
+                if(this.cpuQualify){
                     if(this.playerTotal > this.cpuTotal){
-
+                        hitButton.disabled = true
+                        winnerText.innerHTML = "YOU WIN!!!!!"
+                        modal.style.display = "block"
+                        // setInterval(() =>{
+                        //     modal.style.display = "none"
+                        // },3000)
+                    }else{
+                        hitButton.disabled = true
+                        winnerText.innerHTML = "The house wins"
+                        modal.style.display = "block"
+                        // setInterval(() =>{
+                        //     modal.style.display = "none"
+                        // },3000)
                     }
+                    this.cpuQualify = false;
                 }
        }
             
