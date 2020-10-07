@@ -1,3 +1,9 @@
+const pokerCards = document.querySelectorAll('.card')
+const pokerCardContainer = document.querySelectorAll('.card-container')
+const cardsToDiscard = document.querySelectorAll('input')
+const dealBtn = document.querySelector('.deal-btn')
+console.log(pokerCardContainer)
+
 class Casino  {
     constructor(name){
         this.name = name
@@ -10,31 +16,11 @@ class Casino  {
     buildCards(suit){
         for(let i=2; i < 15; i++){
             // Builds cards 2-10 and sets their value
-            if(i < 11){
                 const card = document.createElement('img');
-                card.setAttribute('value',`${i}`);
+                card.setAttribute('value',i);
+                card.setAttribute('id',suit)
                 card.setAttribute('src',`./assests/blackjack/${i}${suit}.png`);
                 this.deck.push(card)
-              
-            }
-            else if(i > 10 && i < 14){ 
-                //Builds cards J, Q, K and set their value to 10
-                const card = document.createElement('img');
-                card.setAttribute('value',`10`);
-                card.setAttribute('src',`./assests/blackjack/${i}${suit}.png`);
-                this.deck.push(card)
-            } else { 
-                // builds the Ace and sets its value to 11
-                const card = document.createElement('img');
-                card.setAttribute('value',`11`);
-                card.setAttribute('src',`../assests/blackjack/${i}${suit}.png`);
-                this.deck.push(card)
-            }
-            
-        }
-        for(let i=0; i < this.deck.length;i++){
-
-            console.log(this.deck[i].value)
         }
     }
       // Builds a full 52card deck and puts them in the deck array.
@@ -61,27 +47,37 @@ class Casino  {
 class Poker extends Casino {
     constructor(name){  
         super(name) ; {
-            playerHand : []
-            royalFlush : false
-            straightFlush : false
-            forOfAKind : false
-            fullHouse : false
-            flush : false
-            straight : false
-            twoPair : false
+            this.playerHand = []
+            this.royalFlush = false
+            this.straightFlush = false
+            this.forOfAKind = false
+            this.fullHouse = false
+            this.flush = false
+            this.straight = false
+            this.twoPair = false
         }
     }
-    getDeck(){
-        for(let i=0; i< this.deck.length; i++){
-            console.log(this.deck[i])
-           
+    deal(){
+        for(let i=0; i< pokerCards.length; i++){
+            pokerCards[i].remove()
+            pokerCardContainer[i].appendChild(poker.deck[i])
+            poker.playerHand.push(poker.deck[i])
+            console.log(poker.playerHand[i])
+            poker.deck.shift()
         }
     }
 }
 
 let poker = new Poker('name')
 poker.buildDeck()
-poker.getDeck()
 poker.shuffleDeck()
-poker.getDeck()
+poker.deal()
+
+
+
+console.log(poker.playerHand)
+console.log(poker.deck)
+
+console.log(cardsToDiscard[0])
+console.log(dealBtn)
 
