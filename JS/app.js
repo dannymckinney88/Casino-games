@@ -21,22 +21,30 @@ let player = {
     name: 'danny',
     money: 100
 }
+
+
+
+
+
+
 class Casino  {
-    constructor(name,playerCredit){
+    constructor(name){
         this.name = name
-        this.playerCredit = playerCredit
+        this.playerCredit = 0
+        this.card = ""
         this.deck = []
     }
     // Creates cards with suit. Suits are labeled (s =spade c=clubs h=heart d=dimond)
+    // Cards have id of suit
     buildCards(suit){
         for(let i=2; i < 15; i++){
             // Builds cards 2-10 and sets their value
             if(i < 11){
                 const card = document.createElement('img');
-                card.setAttribute('value',i)
+                card.setAttribute('value',`${i}`);
                 card.setAttribute('src',`./assests/blackjack/${i}${suit}.png`);
                 this.deck.push(card)
-                console.log()
+              
             }
             else if(i > 10 && i < 14){ 
                 //Builds cards J, Q, K and set their value to 10
@@ -52,7 +60,6 @@ class Casino  {
                 this.deck.push(card)
             }
             
-            
         }
     }
       // Builds a full 52card deck and puts them in the deck array.
@@ -65,20 +72,20 @@ class Casino  {
     }
     // Shuffles the deck of cards 
     shuffleDeck(deck) {
-        for(let i = deck.length -1; i > 0; i--){
+        for(let i = this.deck.length -1; i > 0; i--){
             //Shuffling around each index to make sure random everytime.
             const j = Math.floor(Math.random() * i)
-            const temp = deck[i]
-            deck[i] = deck[j]
-            deck[j] = temp
+            const temp = this.deck[i]
+            this.deck[i] = this.deck[j]
+            this.deck[j] = temp
         }
     }
 
 }
 
 class BlackJack extends Casino {
-    constructor(name,playerCredit){  
-        super(name,playerCredit) ; {
+    constructor(name){  
+        super(name) ; {
         this.playerCard = ''
         this.dealerCard = ''
         this.playerCards = []
@@ -96,6 +103,7 @@ class BlackJack extends Casino {
     
     // Deals the game out and runs some checks for blackjack 
     deal() {
+   
         //setting intiall values and resetting board
         modal.style.display = "none"
         this.firstDeal = true
@@ -210,6 +218,9 @@ class BlackJack extends Casino {
                     this.dealerHasAce = true
                 }
             }
+            console.log('player total:'+this.playerTotal)
+            console.log('Dealer total:'+this.dealerTotal)
+            
     }
     //  After getting totall checks logic for ace cards if any are out
     HasAce(){
@@ -277,35 +288,37 @@ class BlackJack extends Casino {
     //  Checks all win condtions 
     checkForWin(){
             //  Checks for Ace and makes sure it counts as 1 or 11
-                if(this.playerTotal > 21){
-                console.log(this.playerTotal)
-                hitButton.disabled = true
-                winnerText.innerHTML = "You bust"
-                modal.style.display = "block"         
-            }
-                if(this.dealerTotal > 21){
-                    console.log(this.dealerTotal)
-                    hitButton.disabled = true
-                    winnerText.innerHTML = "Dealer bust"
-                    modal.style.display = "block"
-                }
-                if(this.dealerQualify){
-                    if(this.playerTotal > this.dealerTotal){
-                        hitButton.disabled = true
-                        winnerText.innerHTML = "YOU WIN!!!!!"
-                        modal.style.display = "block"
-                    }else{
-                        hitButton.disabled = true
-                        winnerText.innerHTML = "The house wins"
-                        modal.style.display = "block"
-                    }
-                    this.dealerQualify = false;
-                }
-       }
+            console.log('player total:'+this.playerTotal)
+            console.log('Dealer total:'+this.dealerTotal)
+     if(this.playerTotal > 21){
+       console.log(this.playerTotal)
+       hitButton.disabled = true
+       winnerText.innerHTML = "You bust"
+       modal.style.display = "block"         
+     }
+     if(this.dealerTotal > 21){
+       console.log(this.dealerTotal)
+       winnerText.innerHTML = "Dealer bust"
+       modal.style.display = "block"
+       hitButton.disabled = true
     }
-
-let blackJack = new BlackJack("Danny's Casino", 1000)
-console.log(blackJack)
+     if(this.dealerQualify){
+      if(this.playerTotal > this.dealerTotal){
+         hitButton.disabled = true
+         winnerText.innerHTML = "YOU WIN!!!!!"
+         modal.style.display = "block"
+     }else{
+         hitButton.disabled = true
+         winnerText.innerHTML = "The house wins"
+         modal.style.display = "block"
+     }
+     this.dealerQualify = false;
+   }
+  }
+ }
+        
+const blackJack = new BlackJack("Black Jack dealer")
+// console.log(blackJack)
 
     //Sets up decks
 blackJack.buildDeck()
@@ -315,7 +328,7 @@ blackJack.checkForWin()
 // Event listeners
 dealButton.addEventListener('click', ()=>{
         blackJack.deal()
-    
+
 
     
 })
@@ -335,12 +348,4 @@ standButton.addEventListener('click', ()=>{
 span.onclick = function() {
   modal.style.display = "none";
 }
-
-// When the user clicks anywhere on the window, close it
-// window.onclick = function(event) {
-//   if (event.target == modal) {
-//     modal.style.display = "none";
-//   }
-// }
-
 
