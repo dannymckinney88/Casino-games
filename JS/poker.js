@@ -60,24 +60,77 @@ class Poker extends Casino {
     deal(){
         for(let i=0; i< pokerCards.length; i++){
             pokerCards[i].remove()
-            pokerCardContainer[i].appendChild(poker.deck[i])
-            poker.playerHand.push(poker.deck[i])
-            console.log(poker.playerHand[i])
+            pokerCardContainer[i].appendChild(this.deck[i])
+            this.playerHand.push(this.deck[i])
+            // console.log(i+poker.playerHand[i])
             poker.deck.shift()
         }
+    }
+    discard(){
+        // for(let i=0;i<5;i++){
+        //     //    console.log(cardsToDiscard[i])
+            
+        //     if(cardsToDiscard[i].checked){
+        //         this.deck.shift()
+        //         // pokerCardContainer[i].innerHTML = ''
+        //         // console.log(pokerCardContainer[i])
+        //         // pokerCardContainer[i].appendChild(poker.deck[0])
+        //         console.log('I am comming from poker deck'+this.deck[i])
+        //         this.playerHand.splice(i,1,this.deck[i])
+        //         this.deck.shift()
+        //         // cardsToDiscard[i].checked = false
+        //     }
+        // } 
     }
 }
 
 let poker = new Poker('name')
 poker.buildDeck()
+// for(let i=0; i<poker.deck.length;i++){
+//     console.log(poker.deck[i])
+// }
+// console.log(poker.deck)
 poker.shuffleDeck()
 poker.deal()
 
+function test () {
+    for(let i=0; i<5;i++){
+        console.log(poker.playerHand[i])
+       
+    }
+    console.log('-----------------------------------------------------------------')
+}
 
 
-console.log(poker.playerHand)
-console.log(poker.deck)
+// console.log(poker.playerHand)
+// console.log(poker.playerHand)
+// console.log(poker.deck)
 
-console.log(cardsToDiscard[0])
-console.log(dealBtn)
+// console.log(cardsToDiscard[0])
+// console.log(dealBtn)
+//Listening for checked values and getting that id back
+function discard() {
+    for(let i=0;i<5;i++){
+        //    console.log(cardsToDiscard[i])
+        
+        if(cardsToDiscard[i].checked){
+            poker.deck.shift()
+            pokerCardContainer[i].innerHTML = ''
+            // console.log(pokerCardContainer[i])
+            pokerCardContainer[i].appendChild(poker.deck[0])
+            // console.log('I am comming from poker deck'+this.deck[i])
+
+            // console.log(temp)
+            poker.playerHand.splice(i,1,poker.deck[1])
+            poker.deck.shift()
+            // cardsToDiscard[i].checked = false
+        }
+    } 
+}
+dealBtn.addEventListener('click', function(){
+  discard()
+   
+test()
+       
+})
 
