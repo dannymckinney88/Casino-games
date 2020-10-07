@@ -11,30 +11,30 @@ class Casino  {
         for(let i=2; i < 15; i++){
             // Builds cards 2-10 and sets their value
             if(i < 11){
-                this.card = document.createElement('img');
-                this.card.setAttribute('value',i)
-                this.card.setAttribute('id',suit)
-                this.card.setAttribute('src',`./assests/blackjack/${i}${suit}.png`);
-                this.deck.push(this.card)
-                // console.log(this.deck[i].value)
-        
+                const card = document.createElement('img');
+                card.setAttribute('value',`${i}`);
+                card.setAttribute('src',`./assests/blackjack/${i}${suit}.png`);
+                this.deck.push(card)
+              
             }
             else if(i > 10 && i < 14){ 
                 //Builds cards J, Q, K and set their value to 10
                 const card = document.createElement('img');
-                this.card.setAttribute('value',`10`);
-                this.card.setAttribute('src',`./assests/blackjack/${i}${suit}.png`);
-                this.deck.push(this.card)
+                card.setAttribute('value',`10`);
+                card.setAttribute('src',`./assests/blackjack/${i}${suit}.png`);
+                this.deck.push(card)
             } else { 
                 // builds the Ace and sets its value to 11
                 const card = document.createElement('img');
-                this.card.setAttribute('value',`11`);
-                this.card.setAttribute('src',`./assests/blackjack/${i}${suit}.png`);
-                this.deck.push(this.card)
+                card.setAttribute('value',`11`);
+                card.setAttribute('src',`../assests/blackjack/${i}${suit}.png`);
+                this.deck.push(card)
             }
-            console.log(this.deck[i])
             
-            
+        }
+        for(let i=0; i < this.deck.length;i++){
+
+            console.log(this.deck[i].value)
         }
     }
       // Builds a full 52card deck and puts them in the deck array.
@@ -60,29 +60,28 @@ class Casino  {
 
 class Poker extends Casino {
     constructor(name){  
-        super(name,playerCredit) ; {
-            playerHand = []
-            royalFlush = false
-            straightFlush = false
-            forOfAKind = false
-            fullHouse = false
-            flush = false
-            straight = false
-            twoPair = false
-            pair = false
+        super(name) ; {
+            playerHand : []
+            royalFlush : false
+            straightFlush : false
+            forOfAKind : false
+            fullHouse : false
+            flush : false
+            straight : false
+            twoPair : false
         }
     }
     getDeck(){
         for(let i=0; i< this.deck.length; i++){
-
-            console.log(this.deck[i].value)
+            console.log(this.deck[i])
+           
         }
     }
 }
 
-const pokerDealer = new Casino('Poker Room')
+let poker = new Poker('name')
+poker.buildDeck()
+poker.getDeck()
+poker.shuffleDeck()
+poker.getDeck()
 
-
-pokerDealer.buildDeck()
-pokerDealer.shuffleDeck()
-pokerDealer.getDeck()
