@@ -102,10 +102,17 @@ class BlackJack extends Casino {
         }
     }
     
+    checkForShuffle(){
+        if(this.deck.length <= 1){
+            this.deck.shift()
+            this.buildDeck()
+            this.shuffleDeck()
+        }
+    }
     // Deals the game out and runs some checks for blackjack 
     deal() {
-   
         //setting intiall values and resetting board
+        this.checkForShuffle()
         modal.style.display = "none"
         this.firstDeal = true
         playerContainer.innerHTML = ''
@@ -113,17 +120,18 @@ class BlackJack extends Casino {
         this.playerCards = []
         this.dealerCards = []
         this.bet()
-        // dealing cards out switching from player to dealer for visuals
+        // dealing cards too the player
         for(let i =0; i < 2; i++){
                 // comme back and figure out how to slow down speed of cards comming out----
+            this.checkForShuffle()
             this.playerCard = this.deck[0]
             this.playerCard.setAttribute('class', 'player-card')
             playerContainer.appendChild(this.playerCard)
             this.playerCards.push(this.playerCard)
             this.deck.shift()
-            // this.playerTurn = false
-            // this.dealerTurn = true
         }
+        //Deals the dealer only one card to start
+        this.checkForShuffle()
         this.dealerCard = this.deck[0]
         this.dealerCard.setAttribute('class', 'dealer-card')
         dealerContainer.appendChild(this.dealerCard)
@@ -148,9 +156,8 @@ class BlackJack extends Casino {
         console.log('test'+ player.money)
         playerMoney.innerHTML = '$'+player.money
     }
-    // Checks for blackjac after intialll deal
     checkBlackJack(){
-        //Checking if either both or just one player has black jack
+        //Checking for blackjacks and then displaying who got black jack and disabling bet btn
         if(this.playerTotal==21 && this.dealerTotal==21){
             hitButton.disabled = true
             dealButton.disabled = false
@@ -173,6 +180,8 @@ class BlackJack extends Casino {
     }
     //Lets the player and dealer hit
     hit() {
+
+        this.checkForShuffle()
         //Checks which players turn it is and then gives card to correct player
        if(this.playerTurn){
         //Creates a card for the player and adds to to the playerCards array
@@ -193,8 +202,7 @@ class BlackJack extends Casino {
         this.deck.shift()
         this.checkForAceAndtotal()
         this.HasAce()
-        this.checkForWin()
-        
+        this.checkForWin()   
        }
     }
     // Stops players turn and switches to dealer.
@@ -205,7 +213,6 @@ class BlackJack extends Casino {
         this.HasAce()
         this.dealerHit()
         this.checkForWin()
-        
     }
     // Checks to see if either player has an Ace and counts card total
     checkForAceAndtotal() {
@@ -215,8 +222,7 @@ class BlackJack extends Casino {
             for(let i= 0; i < this.playerCards.length; i++){
                 this.playerTotal += parseInt(this.playerCards[i].getAttribute('value'))
                 if(parseInt(this.playerCards[i].getAttribute('value')) ===11){
-                    this.playerHasAce = true
-                   
+                    this.playerHasAce = true                   
                 }
             }
             for(let i= 0; i< this.dealerCards.length; i ++){
@@ -225,9 +231,6 @@ class BlackJack extends Casino {
                     this.dealerHasAce = true
                 }
             }
-            console.log('player total:'+this.playerTotal)
-            console.log('Dealer total:'+this.dealerTotal)
-            
     }
     //  After getting totall checks logic for ace cards if any are out
     HasAce(){
@@ -237,11 +240,9 @@ class BlackJack extends Casino {
                 console.log('this play has ace:'+this.playerHasAce)
                 this.playerTotal -= 10
                 this.playerHasAce = false
-                console.log('this play has ace after:'+this.playerHasAce)
                 for(let i=0; i< this.playerCards.length; i++){
                     if(parseInt(this.playerCards[i].getAttribute('value')) ===11){
                         this.playerCards[i].setAttribute('value', 1)
-                        console.log(this.playerCards[i].getAttribute('value'))
                     }
                 }
                 if(this.dealerTotal >= 22){
@@ -253,10 +254,8 @@ class BlackJack extends Casino {
         if(this.dealerHasAce){
             // makking sure ace works for dealer
             if(this.dealerTotal >= 22){
-                console.log('Dealer has ace:'+this.dealerHasAce)
                 this.dealerTotal -= 10
                 this.dealerHasAce = false
-                console.log('Dealer has ace after:'+this.dealerHasAce)
                 for(let i=0; i< this.dealerCards.length; i++){
                     if(parseInt(this.dealerCards[i].getAttribute('value')) ===11){
                         this.dealerCards[i].setAttribute('value', 1)
@@ -274,7 +273,7 @@ class BlackJack extends Casino {
         if(this.dealerTurn){
             console.log('test')
             while(this.dealerTotal < 17){
-                    console.log('I need to hit')
+                    this.checkForShuffle()
                     this.hit()
                     this.checkForAceAndtotal()
                     //Checks if dealer bust
@@ -287,7 +286,6 @@ class BlackJack extends Casino {
             }
             if(this.dealerTotal <= 21 && this.dealerTotal >=17){
                 this.dealerQualify = true;
-                console.log(this.dealerTotal, this.dealerQualify)
             }
             this.checkForWin()
     }
@@ -337,9 +335,8 @@ class BlackJack extends Casino {
    }
   }
  }
-        
+//Creates blackjack object
 const blackJack = new BlackJack("Black Jack dealer")
-// console.log(blackJack)
 
     //Sets up decks
 blackJack.buildDeck()
@@ -356,18 +353,13 @@ hitButton.addEventListener('click', ()=>{
     blackJack.hit()
     blackJack.checkForAceAndtotal()
     blackJack.checkForWin()
-    // console.log('Player total: '+ game.playerTotal)
 })
 
 standButton.addEventListener('click', ()=>{
     blackJack.stand()
 })
 
-
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
   modal.style.display = "none";
 }
-sum = 0
-sum 
-console.log(sum)

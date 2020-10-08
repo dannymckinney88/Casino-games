@@ -4,6 +4,7 @@
     grid-template-rows: repeat(5, 1fr);
     grid-column-gap: 0px;
     grid-row-gap: 0px;
+    /* height: 100vh; */
     }
     
     .div1 { grid-area: 1 / 2 / 2 / 4; }
@@ -15,10 +16,16 @@
 h1 {
     text-align: center;
 }
+
+img{
+    width: 150px;
+}
+
 .slot-reel-wrapper{
     display: flex;
-    align-items: center
+    justify-content: center;
 }
+
 
 .logo-wrapper{
     text-align: center;
@@ -28,4 +35,21 @@ h1 {
     text-align: center;
      width: 100px;
      height: 100px;
+}
+
+.spin-container {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.div1{
+    background-color: red;
+}
+
+.div2{
+    background-color: black;
+}
+.div3{
+    background-color: black;
 }
