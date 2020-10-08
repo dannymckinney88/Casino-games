@@ -22,11 +22,6 @@ let player = {
     money: 100
 }
 
-
-
-
-
-
 class Casino  {
     constructor(name){
         this.name = name
@@ -120,15 +115,16 @@ class BlackJack extends Casino {
             playerContainer.appendChild(this.playerCard)
             this.playerCards.push(this.playerCard)
             this.deck.shift()
-            this.playerTurn = false
-            this.dealerTurn = true
-            this.dealerCard = this.deck[0]
-            this.dealerCard.setAttribute('class', 'dealer-card')
-            dealerContainer.appendChild(this.dealerCard)
-            this.dealerCards.push(this.dealerCard)
-            this.deck.shift()
+            // this.playerTurn = false
+            // this.dealerTurn = true
         }
+        this.dealerCard = this.deck[0]
+        this.dealerCard.setAttribute('class', 'dealer-card')
+        dealerContainer.appendChild(this.dealerCard)
+        this.dealerCards.push(this.dealerCard)
+        this.deck.shift()
         //Reseting values 
+      
         this.dealerHasAce = false
         this.playerHasAce = false
         this.playerTurn = true
@@ -155,6 +151,7 @@ class BlackJack extends Casino {
         }
         else if(this.playerTotal == 21){
             hitButton.disabled = true
+            player.money += 5 *1.5
             winnerText.innerHTML = "Winner Winner Chicken Dinner"
             modal.style.display = "block"
         }
@@ -297,13 +294,15 @@ class BlackJack extends Casino {
        modal.style.display = "block"         
      }
      if(this.dealerTotal > 21){
-       console.log(this.dealerTotal)
+       
+       player.money += 10
        winnerText.innerHTML = "Dealer bust"
        modal.style.display = "block"
        hitButton.disabled = true
     }
      if(this.dealerQualify){
       if(this.playerTotal > this.dealerTotal){
+         player.money += 10
          hitButton.disabled = true
          winnerText.innerHTML = "YOU WIN!!!!!"
          modal.style.display = "block"
@@ -348,4 +347,6 @@ standButton.addEventListener('click', ()=>{
 span.onclick = function() {
   modal.style.display = "none";
 }
-
+sum = 0
+sum 
+console.log(sum)

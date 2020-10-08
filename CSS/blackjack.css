@@ -2,8 +2,8 @@
 
 body{
     background-color:white;
-    /* margin: 0;
-    padding: 0; */
+    margin: 0;
+    padding: 0;
     /* height: 100vh; */
 }
 
@@ -129,7 +129,7 @@ button:hover{
   .modal-content {
     display: none;
     background-color: #fefefe;
-    z-index: 1;
+    z-index: 2;
     margin: auto;
     margin-bottom: 10px;
     padding: 20px;
@@ -154,8 +154,8 @@ button:hover{
 
   .grid {
     display: grid;
-    grid-template-columns: 15% 1fr 15%;
-    grid-template-rows: 15% 1fr 15%;
+    grid-template-columns: 10% 1fr 10%;
+    grid-template-rows: 5% 1fr 15%;
     grid-column-gap: 0px;
     grid-row-gap: 0px;
     }
@@ -171,5 +171,5 @@ button:hover{
    
 
     .grid{
-        height: 90vh;
+        height: 70vh;
     }
