@@ -341,7 +341,6 @@ const blackJack = new BlackJack("Black Jack dealer")
     //Sets up decks
 blackJack.buildDeck()
 blackJack.shuffleDeck(blackJack.deck)
-blackJack.checkForWin()
      
 // Event listeners
 dealButton.addEventListener('click', ()=>{

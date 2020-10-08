@@ -1,10 +1,9 @@
 /* BlackJack styles */
 
 body{
-    background-color:#515052;
+    background-color:#BDEDE0;
     margin: 0;
     padding: 0;
-    /* height: 100vh; */
 }
 
 .menu-container,.div2,.header-container,.right-side,.left-side{
@@ -63,13 +62,11 @@ h6 {
     transform: translateY(5px);
     transition: all 0.5s ease-in-out;
   }
-  
 
-.card-option {
-    height: 100px;
-    width: 75px;
-    transition: all 0.5s ease-in-out;
+  .miiddle{
+      position: relative;
 }
+  
 
 
 h1 {
@@ -160,7 +157,7 @@ button:disabled{
   .grid {
     display: grid;
     grid-template-columns: 10% 1fr 10%;
-    grid-template-rows: 5% 1fr 15%;
+    grid-template-rows: 15% 1fr 25%;
     grid-column-gap: 0px;
     grid-row-gap: 0px;
     }

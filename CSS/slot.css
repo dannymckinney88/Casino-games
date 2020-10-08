@@ -1,10 +1,16 @@
+body{
+    margin:0;
+    padding: 0;
+    background-color: #C5C5C5;
+}
+
 .parent {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(5, 1fr);
     grid-column-gap: 0px;
     grid-row-gap: 0px;
-    /* height: 100vh; */
+    height: 100vh;
     }
     
     .div1 { grid-area: 1 / 2 / 2 / 4; }
@@ -18,7 +24,7 @@ h1 {
 }
 
 img{
-    width: 150px;
+    width: 200px;
 }
 
 .slot-reel-wrapper{
@@ -27,14 +33,35 @@ img{
 }
 
 
-.logo-wrapper{
+.background-wrapper{
     text-align: center;
 }
 
-.slot-logo{
-    text-align: center;
-     width: 100px;
-     height: 100px;
+.logo-wrapper{
+    display: flex;
+    /* flex-direction: row-reverse; */
+    justify-content: space-between; 
+    justify-items: auto; 
+}
+
+.slot-backgroud{
+     text-align: center;
+     width: 100%;
+     height: 275px;
+}
+
+.logo1, .logo2, .logo3{
+    height: 120px
+}
+
+.logo3{
+    position: relative;
+    left: 250px;
+}
+
+.logo2{
+    position: relative; 
+    left: 125px;
 }
 
 .spin-container {
@@ -44,12 +71,12 @@ img{
 }
 
 .div1{
-    background-color: red;
+    background-color: #C5C5C5;
 }
 
 .div2{
-    background-color: black;
+    background-color: #3E7CB1;
 }
 .div3{
-    background-color: black;
+    background-color: #3E7CB1;
 }
