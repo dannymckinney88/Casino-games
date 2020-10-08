@@ -180,7 +180,8 @@ button:disabled{
 
     
     a {
-        color: #ECBA82;
+        color: black;
+        font-weight: 800;
         margin-left: 10px;
         text-decoration: none;
     }
