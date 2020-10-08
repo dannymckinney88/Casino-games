@@ -29,12 +29,10 @@ const dealBtn = document.querySelector('.deal-btn')
 //Event listeners
 dealBtn.addEventListener('click', function(){
     poker.discard()
-    console.log(poker.flushCounter,poker.pairsCounter,poker.threeOfAkindCounter)
-  
-         
+    poker.pairsAndFlush()
+    poker.hasStraight()
+    poker.checkWin()
   })
-
-
 
 class Casino  {
     constructor(name){
@@ -89,6 +87,7 @@ class Poker extends Casino {
             this.threeOfAKind = false
             this.twoPair = false
            
+           
             
         }
     }
@@ -100,6 +99,7 @@ class Poker extends Casino {
             // console.log(i+poker.playerHand[i])
             poker.deck.shift()
         }
+
     }
     discard(){
         for(let i=0;i<5;i++){
@@ -122,12 +122,12 @@ class Poker extends Casino {
     }
     pairsAndFlush(){
         //Temp vars
-        let totals = []
+        let cardTotals = []
         let flushArray = []
-        pairsCounter = 0
-        threeOfAkindCounter
-        fourOfAkindCounter = 0
-        flushCounter = 0
+        let pairsCounter = 0
+        let threeOfAkindCounter = 0
+        let fourOfAkindCounter = 0
+        let flushCounter = 0
 
         for(let i = 0; i< poker.playerHand.length; i++){
             let pairs= 0
@@ -141,78 +141,113 @@ class Poker extends Casino {
                 }
                 // console.log(parseInt(poker.playerHand[i].getAttribute('value')))
             }
-                totals.push(pairs)
+                cardTotals.push(pairs)
                 flushArray.push(suits)
                 pairs = 0
                 suits = 0
         } 
-            console.log(totals)
-            console.log(flushArray)
-        for(let i=0; i < totals.length; i++){
-            if(totals[i] === 2){
+    
+        for(let i=0; i < cardTotals.length; i++){
+            if(cardTotals[i] === 2){
                 pairsCounter++
             }
-            if(totals[i] === 3){
+            if(cardTotals[i] === 3){
                 threeOfAkindCounter++
             }
-            if(totals[i] === 4){
+            if(cardTotals[i] === 4){
                 fourOfAkindCounter++
             }
             if(flushArray[i] === 5){
                 flushCounter++
             }
-        }
+        } console.log(threeOfAkindCounter)
         if(fourOfAkindCounter ===4){
             this.forOfAKind = true
         }
         else if(threeOfAkindCounter ===3 && pairsCounter ===2){
             this.fullHouse = true
         }
+        else if(flushCounter === 5){
+            this.flush = true
+        }
         else if(threeOfAkindCounter === 3){
             this.threeOfAKind = true
         }else if(pairsCounter ===4){
             this.twoPair = true
         }
+        console.log(flushArray)
+        console.log(cardTotals)
    }
    hasStraight(){
+    // Temp array to hold the parsed values and then sort them.
+    const tempArray = []
+       for(let i=0; i < this.playerHand.length; i++){
+           tempArray.push(parseInt(this.playerHand[i].getAttribute('value')))
+       }
+        tempArray.sort(function(a,b){return a-b})
+        console.log('temp: '+tempArray)
+        let straightCounter = 0
+        for(let i=0; i < tempArray.length -1; i++){
+        
+            let numHolder = 0
+            numHolder = tempArray[i]
+            if(tempArray[i+1] - numHolder === 1){   
+                straightCounter ++
+            }   
+        }
+      if(straightCounter ===5 ){
+          this.straight = true;
+      }
+   }
+   checkWin(){
+       //Royal fllush card totals will alwyas equal 60
+        let isRoyal 
 
+        console.log('Two pair'+ this.twoPair)
+        console.log('3x'+ this.threeOfAKind)
+        console.log('flush'+ this.flush)
+        console.log('straight'+ this.straight)
+        console.log('fullhouse'+ this.fullHouse)
+        // console.log('straight'+ this.straight)
+
+        for(let i =0; i < this.playerHand.length; i++){
+            isRoyal += parseInt(poker.playerHand[i].getAttribute('value'))
+        }
+
+       if(this.flush ===true && this.straight === true && isRoyal === 60){
+           alert('royal flush')
+           this.royalFlush = false
+       }
+       else if(this.straightFlush){
+           alert('straight flush')
+           this.straightFlush = false
+       }
+       else if (this.forOfAKind){
+           alert('four of a kind')
+           this.forOfAKind = false
+       }
+       else if(this.fullHouse){
+            alert('fullhouse')
+            this.fullHouse = false
+       }
+       else if(this.flush){
+           alert('flush')
+           this.flush = false
+       }
+       else if(this.threeOfAKind){
+           alert('three of a kind')
+           this.threeOfAKind = false
+       }
+       else if(this.twoPair){
+           alert('two pair')
+           this.twoPair = false
+       }
    }
 }
 
 let poker = new Poker('name')
 poker.buildDeck()
-// for(let i=0; i<poker.deck.length;i++){
-//     console.log(poker.deck[i])
-// }
-// console.log(poker.deck)
 poker.shuffleDeck()
 poker.deal()
 poker.pairsAndFlush()
-function test () {
-    for(let i=0; i<5;i++){
-        console.log(poker.playerHand[i])
-       
-    }
-    console.log('-----------------------------------------------------------------')
-}
-
-
-// console.log(poker.playerHand)
-// console.log(poker.playerHand)
-// console.log(poker.deck)
-
-// console.log(cardsToDiscard[0])
-// console.log(dealBtn)
-//Listening for checked values and getting that id back
-function discard() {
-  
-}
-let isStraight = false
-function isConsecutive (max,min){
-    if(max - min +1 ===5){
-        isStraight = true
-    }
-}
-
-isConsecutive(5,1)
-console.log(isStraight)
+// const isRoyal = parseInt(poker.playerHand.reduce((a,b) => a +b).getAttribute('value'))
