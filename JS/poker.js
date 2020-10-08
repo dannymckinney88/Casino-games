@@ -123,7 +123,9 @@ test()
 })
 
 //Checking for win condtions 
-// get all values from img attribute and save that in an array then sort the array.
+// get all values from img attribute, loop through and check each element against each other
+// add each index and save value into new array
+// then check how many times each number sequence appears
 // Check highest 1st,  royal flush,straight flush, 4x, full house, flush, straight, 3x, 2 pair
 //--Royal flush 
     //check ids for suit and value card value then check if all 5 cards are same id(suiut) and  consecutive order (10-14 sort the values)
@@ -144,26 +146,51 @@ test()
 
 
 let totals = []
-let temp= 0
+let flushArray = []
 
 for(let i = 0; i< poker.playerHand.length; i++){
+    let temp= 0
+    let temp2= 0
     for(let j = 0; j< poker.playerHand.length; j++){
         if(parseInt(poker.playerHand[i].getAttribute('value')) === parseInt(poker.playerHand[j].getAttribute('value'))){
             temp ++
         }
+        if(poker.playerHand[i].getAttribute('value') === poker.playerHand[j].getAttribute('value') ){
+            temp2++
+        }
         // console.log(parseInt(poker.playerHand[i].getAttribute('value')))
     }
+    flushArray.push(temp2)
     totals.push(temp)
     temp = 0
     
 }
 let pairs;
 let threeOfAKind;
-let fourOfAKind
-
+let fourOfAKind;
+let flush;
+console.log(flushArray)
 for(let i=0; i < totals.length; i++){
     if(totals[i] === 2){
-
+        pairs++
+    }
+    if(totals[i] === 3){
+        threeOfAKind++
+    }
+    if(totals[i] === 4){
+        forOfAKind++
+    }
+    if(flushArray[i] === 5){
+        flush++
     }
 }
 console.log(totals)
+let isStraight = false
+function isConsecutive (max,min){
+    if(max - min +1 ===5){
+        isStraight = true
+    }
+}
+
+isConsecutive(6,2)
+console.log(isStraight)
