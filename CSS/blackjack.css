@@ -1,20 +1,20 @@
 /* BlackJack styles */
 
 body{
-    background-color:white;
+    background-color:#515052;
     margin: 0;
     padding: 0;
     /* height: 100vh; */
 }
 
 .menu-container,.div2,.header-container,.right-side,.left-side{
-    background-color:#F7EF99;
+    background-color:#BDEDE0;
 }
 
 
 
 .game-container{
-    background-color: #ABE188;
+    background-color: #515052;
 }
 
 h6 {
@@ -107,7 +107,7 @@ h1 {
 
 button{
     color: whitesmoke;
-    background-color: #A41623;
+    background-color: #ECBA82;
     border-radius: 25px;
     border: 2px solid white;
     border-radius: 50%;
@@ -172,4 +172,20 @@ button:hover{
 
     .grid{
         height: 70vh;
+    }
+
+    
+    a {
+        color: #ECBA82;
+        margin-left: 10px;
+        text-decoration: none;
+    }
+
+    a:hover{
+        color: red
+    }
+    
+    h4{
+        color: white;
+        text-align: center;
     }

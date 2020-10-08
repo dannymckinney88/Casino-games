@@ -28,6 +28,7 @@ body{
         display: flex;
         flex-direction: column;
         align-items: center;
+        margin-top: 175px;
     }
     
     .payout-wrapper{
@@ -37,10 +38,17 @@ body{
 
     .winning-combos {
         background-color: #EDF7F6;
+        padding-right: 25px;
        
     }
 
     .payouts{
         background-color: #EDF7F6;
     }
+    
+    a{
+        text-decoration: none;
+        margin-left: 12px;
+    }
  
+  

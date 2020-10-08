@@ -2,6 +2,12 @@
     // card elements 
 const playerContainer = document.querySelector('.card-container-player')
 const dealerContainer =  document.querySelector('.card-container-dealer')
+    //
+const dealerTotal = document.querySelector('.dealer-total')
+const playerTotal = document.querySelector('.player-total')
+
+console.log(dealerTotal)
+console.log(playerTotal)
     //buttons
 const dealButton = document.querySelector('.deal-btn')
 const hitButton = document.querySelector('.hit')
@@ -133,6 +139,7 @@ class BlackJack extends Casino {
         // Checking for black Jack
         this.checkForAceAndtotal()
         this.checkBlackJack()
+        this.checkForWin()
     }
         
     // Tracks your money
@@ -146,17 +153,20 @@ class BlackJack extends Casino {
         //Checking if either both or just one player has black jack
         if(this.playerTotal==21 && this.dealerTotal==21){
             hitButton.disabled = true
+            dealButton.disabled = false
             winnerText.innerHTML = "You push"
             modal.style.display = "block"
         }
         else if(this.playerTotal == 21){
             hitButton.disabled = true
-            player.money += 5 *1.5
+            dealButton.disabled = false
+            player.money += 5 *2.5
             winnerText.innerHTML = "Winner Winner Chicken Dinner"
             modal.style.display = "block"
         }
         else if(this.dealerTotal == 21){
             hitButton.disabled = true
+            dealButton.disabled = false
             winnerText.innerHTML = "You Dealer Wins"
             modal.style.display = "block"
         }
@@ -285,11 +295,12 @@ class BlackJack extends Casino {
     //  Checks all win condtions 
     checkForWin(){
             //  Checks for Ace and makes sure it counts as 1 or 11
-            console.log('player total:'+this.playerTotal)
-            console.log('Dealer total:'+this.dealerTotal)
+    dealerTotal.innerHTML = `Dealer's Total: ${this.dealerTotal}`
+    playerTotal.innerHTML = `Players's Total: ${this.playerTotal}`
      if(this.playerTotal > 21){
        console.log(this.playerTotal)
        hitButton.disabled = true
+       dealButton.disabled = false
        winnerText.innerHTML = "You bust"
        modal.style.display = "block"         
      }
@@ -299,15 +310,26 @@ class BlackJack extends Casino {
        winnerText.innerHTML = "Dealer bust"
        modal.style.display = "block"
        hitButton.disabled = true
+       dealButton.disabled = false
     }
      if(this.dealerQualify){
       if(this.playerTotal > this.dealerTotal){
          player.money += 10
          hitButton.disabled = true
+         dealButton.disabled = false
          winnerText.innerHTML = "YOU WIN!!!!!"
          modal.style.display = "block"
-     }else{
+     }else if(this.playerTotal === this.dealerTotal){
+        player.money += 5
+        hitButton.disabled = true
+        dealButton.disabled = false
+        winnerText.innerHTML = "Push"
+        modal.style.display = "block"
+     }
+     
+     else{
          hitButton.disabled = true
+         dealButton.disabled = false
          winnerText.innerHTML = "The house wins"
          modal.style.display = "block"
      }
@@ -327,13 +349,12 @@ blackJack.checkForWin()
 // Event listeners
 dealButton.addEventListener('click', ()=>{
         blackJack.deal()
-
-
-    
+        dealButton.disabled = true
 })
 
 hitButton.addEventListener('click', ()=>{
     blackJack.hit()
+    blackJack.checkForAceAndtotal()
     blackJack.checkForWin()
     // console.log('Player total: '+ game.playerTotal)
 })
