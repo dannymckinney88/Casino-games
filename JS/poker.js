@@ -30,9 +30,7 @@ const betBtn = document.querySelector('.bet-btn')
 const standBtn = document.querySelector('.stand-btn')
 //Event listeners
 
-// standBtn.addEventListener('clcik',function(){
 
-// })
 
 const player ={
     money: 100
@@ -191,6 +189,7 @@ class Poker extends Casino {
 
         if((tempArray[4] - tempArray[0]) + 1=== tempArray.length){
             this.straight = true
+            console.log(this.straight)
         }
    }
    checkWin(){
@@ -243,28 +242,37 @@ class Poker extends Casino {
 let poker = new Poker('name')
 
 betBtn.addEventListener('click',function(){
-    for(let i=0 ;i<cardsToDiscard.length; i++){
-        cardsToDiscard[i].disabled = false
-    }
     poker.buildDeck()
     poker.shuffleDeck()
     poker.deal()
     poker.pairsAndFlush()
+    //reset values
     betBtn.disabled = true
     dealBtn.disabled = false
+    standBtn.disabled = false
+    for(let i=0 ;i<cardsToDiscard.length; i++){
+        cardsToDiscard[i].disabled = false
+    }
+})
+
+standBtn.addEventListener('click', function(){
+    //Reset Values
+    dealBtn.disabled = true
+    betBtn.disabled = false
+    standBtn.disabled = true
 })
 
 dealBtn.addEventListener('click', function(){
-    for(let i=0 ;i<cardsToDiscard.length; i++){
-        cardsToDiscard[i].disabled = true
-    }
     poker.discard()
     poker.pairsAndFlush()
     poker.hasStraight()
     poker.checkWin()
+    // Reset vaues
     dealBtn.disabled = true
     betBtn.disabled = false
+    standBtn.disabled = true
+    for(let i=0 ;i<cardsToDiscard.length; i++){
+       cardsToDiscard[i].checked = false
+       cardsToDiscard[i].disabled = true
+   }
   })
-
-
-
