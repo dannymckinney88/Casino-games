@@ -139,7 +139,6 @@ class Poker extends Casino {
                 if(poker.playerHand[i].getAttribute('id') === poker.playerHand[j].getAttribute('id') ){
                     suits++
                 }
-                // console.log(parseInt(poker.playerHand[i].getAttribute('value')))
             }
                 cardTotals.push(pairs)
                 flushArray.push(suits)
@@ -175,8 +174,6 @@ class Poker extends Casino {
         }else if(pairsCounter ===4){
             this.twoPair = true
         }
-        console.log(flushArray)
-        console.log(cardTotals)
    }
    hasStraight(){
     // Temp array to hold the parsed values and then sort them.
