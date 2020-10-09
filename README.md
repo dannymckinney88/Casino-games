@@ -2,7 +2,7 @@
 So here is my first project! We got 3 diffrent casino games in line for the users. **Blackjack, 5 Card Poker**
 
 ## Why a casino game?
-I remember growing up and my grandfather would always be teaching my how to play cards. Plus i have always lived life taking risk. So what better for a first project than to make a casino game remembering my grandfather. I also wanted to challenge myself to build out three games in 6 days
+I remember growing up and my grandfather would always be teaching my how to play cards. Plus i have always lived life taking risk. So what better for a first project than to make a casino game remembering my grandfather. I also wanted to challenge myself to build out three games in 5 days
 
 ![BlackJack](/assests/blackjack1.png)
 
