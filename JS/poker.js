@@ -181,22 +181,17 @@ class Poker extends Casino {
     // Temp array to hold the parsed values and then sort them.
     const tempArray = []
        for(let i=0; i < this.playerHand.length; i++){
+            //  Parses values so we have numbers
            tempArray.push(parseInt(this.playerHand[i].getAttribute('value')))
        }
+    // The array needs to be sorted for this to work
         tempArray.sort(function(a,b){return a-b})
-        console.log('temp: '+tempArray)
         let straightCounter = 0
-        for(let i=0; i < tempArray.length -1; i++){
-        
-            let numHolder = 0
-            numHolder = tempArray[i]
-            if(tempArray[i+1] - numHolder === 1){   
-                straightCounter ++
-            }   
+        console.log('im temp array'+ tempArray[4])
+
+        if((tempArray[4] - tempArray[0]) + 1=== tempArray.length){
+            this.straight = true
         }
-      if(straightCounter ===5 ){
-          this.straight = true;
-      }
    }
    checkWin(){
        //Royal fllush card totals will alwyas equal 60
@@ -272,4 +267,4 @@ dealBtn.addEventListener('click', function(){
   })
 
 
-// const isRoyal = parseInt(poker.playerHand.reduce((a,b) => a +b).getAttribute('value'))
+
