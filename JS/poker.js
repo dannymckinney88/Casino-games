@@ -51,7 +51,7 @@ class Casino  {
                 const card = document.createElement('img');
                 card.setAttribute('value',i);
                 card.setAttribute('id',suit)
-                card.setAttribute('src',`./assests/blackjack/${i}${suit}.png`);
+                card.setAttribute('src',`assests/blackjack/${i}${suit}.png`);
                 this.deck.push(card)
         }
     }

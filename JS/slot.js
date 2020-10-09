@@ -20,19 +20,19 @@ class Slot {
         for(let i = 1; i <= 3; i++){
             for(let j =1; j<=3; j++){
                 let reel1 = document.createElement('img')
-                reel1.setAttribute('src',`./assests/slot/${j}.png` )
+                reel1.setAttribute('src',`assests/slot/${j}.png` )
                 reel1.setAttribute('class', 'slot-reel')
                 reel1.setAttribute('value',j )
                 this.reel1.push(reel1)
                 for(let k=1; k<=3;k++){
                     let reel2 = document.createElement('img')
-                    reel2.setAttribute('src',`./assests/slot/${k}.png` )
+                    reel2.setAttribute('src',`assests/slot/${k}.png` )
                     reel2.setAttribute('class', 'slot-reel')
                     reel2.setAttribute('value',k )
                     this.reel2.push(reel2)
                 }
                 let reel3 = document.createElement('img')
-                    reel3.setAttribute('src',`./assests/slot/${i}.png` )
+                    reel3.setAttribute('src',`assests/slot/${i}.png` )
                     reel3.setAttribute('class', 'slot-reel')
                     reel3.setAttribute('value',i )
                     this.reel3.push(reel3)

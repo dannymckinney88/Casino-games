@@ -43,7 +43,7 @@ class Casino  {
             if(i < 11){
                 const card = document.createElement('img');
                 card.setAttribute('value',`${i}`);
-                card.setAttribute('src',`./assests/blackjack/${i}${suit}.png`);
+                card.setAttribute('src',`assests/blackjack/${i}${suit}.png`);
                 this.deck.push(card)
               
             }
@@ -51,13 +51,13 @@ class Casino  {
                 //Builds cards J, Q, K and set their value to 10
                 const card = document.createElement('img');
                 card.setAttribute('value',`10`);
-                card.setAttribute('src',`./assests/blackjack/${i}${suit}.png`);
+                card.setAttribute('src',`assests/blackjack/${i}${suit}.png`);
                 this.deck.push(card)
             } else { 
                 // builds the Ace and sets its value to 11
                 const card = document.createElement('img');
                 card.setAttribute('value',`11`);
-                card.setAttribute('src',`./assests/blackjack/${i}${suit}.png`);
+                card.setAttribute('src',`assests/blackjack/${i}${suit}.png`);
                 this.deck.push(card)
             }
             
