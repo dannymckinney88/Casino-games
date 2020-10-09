@@ -2,6 +2,7 @@ body{
     margin:0;
     padding: 0;
     background-color: #C5C5C5;
+    
 }
 
 .parent {
@@ -29,10 +30,12 @@ a:hover{
     color: red;
 }
 
-h1 {
-    padding-top: 15px;
-    font-family: fantasy;
+h1, h2{
+    padding-top: 10px;
     text-align: center;
+}
+
+h1{
     font-size: 55px;
     color: whitesmoke;
 }
@@ -119,3 +122,6 @@ img{
   
 }
 
+.money{
+    padding-left: 15px;
+}

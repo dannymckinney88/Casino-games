@@ -2,6 +2,11 @@
 const reelContainers = document.querySelectorAll('.reel-container')
 const spinBtn = document.querySelector('.spin-container')
 const background = document.querySelector('.slot-backgroud')
+const playerMoney = document.querySelector('.player-money')
+
+const player={
+    money: 1000
+}
 
 class Slot {
     constructor(){
@@ -53,23 +58,21 @@ class Slot {
         if((parseInt(this.reel1[0].getAttribute('value'))) ===(parseInt(this.reel2[0].getAttribute('value'))) 
         && (parseInt(this.reel2[0].getAttribute('value'))) ===(parseInt(this.reel3[0].getAttribute('value')))
         ){
-            alert('you win')
+            player.money += 150
+            playerMoney.innerHTML = player.money
+            alert(player.money)
         }
         console.log(this.reel3)
         slot.reel1 = []
         slot.reel2 = []
         slot.reel3 = []
     }
-    changeBackground(){
-        // Changes the background image on the slot machine
-        const randomNum = Math.floor(Math.random()*3 +1)
-        background.setAttribute('src',`/assests/slot/bg${randomNum}.jpg`)
-    }
-
 }
 //  Event listener and starts game.
 const slot = new Slot('Slot machine')
 spinBtn.addEventListener('click',function(){
+    player.money -= 50
+    playerMoney.innerHTML = player.money
     slot.buildReel()
     slot.randomReel(slot.reel1)
     slot.randomReel(slot.reel2)
@@ -78,6 +81,5 @@ spinBtn.addEventListener('click',function(){
     slot.displayRandom(slot.reel2,1)
     slot.displayRandom(slot.reel3,2)
     slot.checkForWin()
-    slot.changeBackground()
     console.log(slot.reel1[0],slot.reel2[0],slot.reel3[0])
 })

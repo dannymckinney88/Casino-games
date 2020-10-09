@@ -34,6 +34,10 @@ const standBtn = document.querySelector('.stand-btn')
 
 // })
 
+const player ={
+    money: 100
+}
+
 class Casino  {
     constructor(name){
         this.name = name
@@ -93,7 +97,7 @@ class Poker extends Casino {
     }
     deal(){
         for(let i=0; i< pokerCards.length; i++){
-            pokerCards[i].remove()
+            pokerCardContainer[i].innerHTML = ''
             pokerCardContainer[i].appendChild(this.deck[i])
             this.playerHand.push(this.deck[i])
             // console.log(i+poker.playerHand[i])
@@ -103,20 +107,13 @@ class Poker extends Casino {
     }
     discard(){
         for(let i=0;i<5;i++){
-            //    console.log(cardsToDiscard[i])
-            
+
             if(!cardsToDiscard[i].checked){
                 poker.deck.shift()
-                // console.log(poker.deck[1])
                 pokerCardContainer[i].innerHTML = ''
-                // console.log(pokerCardContainer[i])
                 pokerCardContainer[i].appendChild(poker.deck[1])
-                // console.log('I am comming from poker deck'+this.deck[i])
-    
-                // console.log(temp)
                 poker.playerHand.splice(i,1,poker.deck[1])
                 poker.deck.shift()
-                // cardsToDiscard[i].checked = false
             }
         } 
     }
@@ -145,6 +142,8 @@ class Poker extends Casino {
                 pairs = 0
                 suits = 0
         } 
+        console.log(cardTotals)
+        console.log(flushArray)
     
         for(let i=0; i < cardTotals.length; i++){
             if(cardTotals[i] === 2){
@@ -174,6 +173,9 @@ class Poker extends Casino {
         }else if(pairsCounter ===4){
             this.twoPair = true
         }
+        cardTotals = []
+        flushArray = []
+        console.log(cardTotals )
    }
    hasStraight(){
     // Temp array to hold the parsed values and then sort them.
@@ -239,12 +241,16 @@ class Poker extends Casino {
            alert('two pair')
            this.twoPair = false
        }
+       this.playerHand =[]
    }
 }
 
 let poker = new Poker('name')
 
 betBtn.addEventListener('click',function(){
+    for(let i=0 ;i<cardsToDiscard.length; i++){
+        cardsToDiscard[i].disabled = false
+    }
     poker.buildDeck()
     poker.shuffleDeck()
     poker.deal()
@@ -254,6 +260,9 @@ betBtn.addEventListener('click',function(){
 })
 
 dealBtn.addEventListener('click', function(){
+    for(let i=0 ;i<cardsToDiscard.length; i++){
+        cardsToDiscard[i].disabled = true
+    }
     poker.discard()
     poker.pairsAndFlush()
     poker.hasStraight()
