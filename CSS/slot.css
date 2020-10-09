@@ -18,23 +18,46 @@ body{
     .div3 { grid-area: 1 / 4 / 6 / 5; }
     .div4 { grid-area: 2 / 2 / 6 / 4; }
 
+a{
+    margin: 5px 12px;
+    text-decoration: none;
+    color: whitesmoke;
+    font-size: 22px;
+}
+
+a:hover{
+    color: red;
+}
 
 h1 {
+    padding-top: 15px;
+    font-family: fantasy;
     text-align: center;
+    font-size: 55px;
+    color: whitesmoke;
 }
 
 img{
     width: 200px;
 }
 
+.slot-reel{
+    padding: 0 5px;
+    border: 2px ridge black;
+    border-style: ridge;
+    background-color: #fff;
+}
+
 .slot-reel-wrapper{
     display: flex;
     justify-content: center;
+    margin-top: 100px;
 }
 
 
 .background-wrapper{
     text-align: center;
+    background-color:#3E7CB1;
 }
 
 .logo-wrapper{
@@ -51,17 +74,21 @@ img{
 }
 
 .logo1, .logo2, .logo3{
+    padding-top: 25px;
+    padding-left:15px;
     height: 120px
 }
 
 .logo3{
-    position: relative;
-    left: 250px;
+    padding-left: 200px;
+    /* position: relative;
+    left: 250px; */
 }
 
 .logo2{
-    position: relative; 
-    left: 125px;
+    padding-left: 200px;
+    /* position: relative; 
+    left: 125px; */
 }
 
 .spin-container {

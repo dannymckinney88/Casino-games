@@ -50,5 +50,14 @@ body{
         text-decoration: none;
         margin-left: 12px;
     }
- 
-  
+    
+    button{
+        color: whitesmoke;
+        background-color: black;
+        border-radius: 25px;
+        border: 2px solid white;
+        border-radius: 50%;
+        height: 50px;
+        width:  75px;
+        
+    }

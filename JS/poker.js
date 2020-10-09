@@ -26,13 +26,13 @@ const pokerCards = document.querySelectorAll('.card')
 const pokerCardContainer = document.querySelectorAll('.card-container')
 const cardsToDiscard = document.querySelectorAll('input')
 const dealBtn = document.querySelector('.deal-btn')
+const betBtn = document.querySelector('.bet-btn')
+const standBtn = document.querySelector('.stand-btn')
 //Event listeners
-dealBtn.addEventListener('click', function(){
-    poker.discard()
-    poker.pairsAndFlush()
-    poker.hasStraight()
-    poker.checkWin()
-  })
+
+// standBtn.addEventListener('clcik',function(){
+
+// })
 
 class Casino  {
     constructor(name){
@@ -246,8 +246,24 @@ class Poker extends Casino {
 }
 
 let poker = new Poker('name')
-poker.buildDeck()
-poker.shuffleDeck()
-poker.deal()
-poker.pairsAndFlush()
+
+betBtn.addEventListener('click',function(){
+    poker.buildDeck()
+    poker.shuffleDeck()
+    poker.deal()
+    poker.pairsAndFlush()
+    betBtn.disabled = true
+    dealBtn.disabled = false
+})
+
+dealBtn.addEventListener('click', function(){
+    poker.discard()
+    poker.pairsAndFlush()
+    poker.hasStraight()
+    poker.checkWin()
+    dealBtn.disabled = true
+    betBtn.disabled = false
+  })
+
+
 // const isRoyal = parseInt(poker.playerHand.reduce((a,b) => a +b).getAttribute('value'))
