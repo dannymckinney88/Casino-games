@@ -1,29 +1,48 @@
-* {
-    box-sizing: border-box;
-  }
-  
   body {
     margin: 0;
     font-family: Helvetica;
-    background-color: antiquewhite;
+    background-color: black;
   }
   img {
-    border-radius: 30%;
-    border: 5px solid greenyellow;
+    border: 4px solid black;
     height: 100px;
     width: 100px;
   }
 
 
-.container1 {
+.container1,.container2{
     display: flex;
     margin:auto;
     width: 50%;
-    
     border: 1px solid black;
     flex-direction: column;
     align-items: center;
-    background-color: blue;
+    background-color: #1098F7;
+    padding-bottom: 2px;
+}
+
+.container1{
+    margin-top: 60px;
+}
+.container-top {
+    display: flex;
+    margin:auto;
+    width: 50%;
+    border: 1px solid black;
+    flex-direction: column;
+    align-items: center;
+    background-color: #1098F7;
+}
+
+.reel-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.top{
+    width: 100%;
+    height: 200px;
 }
 
 .job{
@@ -33,25 +52,51 @@
     width: 100%;
     text-align: center;
 }
+
+.slot-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+}
+
+.reel{
+    border: 4px solid black;
+}
+
 .reel1{
-    /* display: flex; */
+    display: flex;
     /* background-color:lightgreen; */
     /* height: 50px; */
     /* width: 100%; */
     /* text-align: center; */
     /* justify-content: space-around; */
-    background-color:red;
+    background-color:white;
+    margin-top: 25px;
     
 }
 
 .reel2{
     /* height: 50px; */
-    background-color: aquamarine;
+    display: flex;
+    background-color:white;
+    
 }
 
 
 .reel3{
-    background-color: red;
+    display: flex;
+    background-color: white;
+    margin-bottom: 75px;
+}
+
+.slot-reel{
+    width: 150px
+}
+
+p{
+    color: white;
+    /* border-radius */
 }
 
 h6{
@@ -66,8 +111,20 @@ h6{
 
 }
 
+.contact{
+    background-color: white;
+    width: 75%;
+    height: 75%;
+    margin: 25px 0;
+    border-radius: 15px;
+}
+
 .phone {
-    background-color:lightgreen;
+   
     width: 100%;
     font-size: 22px;
+}
+button{
+    /* align-self: flex-end; */
+    margin-bottom: 25px;
 }
