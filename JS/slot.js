@@ -4,49 +4,47 @@ const spinBtn = document.querySelector('.spin-container')
 const background = document.querySelector('.slot-backgroud')
 const playerMoney = document.querySelector('.player-money')
 
-
-function createReels(reel,value){
-    reel = document.createElement('img')
-    reel.setAttribute('src',`assests/slot/${value}.png` )
-    reel.setAttribute('class', 'slot-reel')
-    reel.setAttribute('value',value )
-    console.log(reel)
-}
-
-let realImgOne;
-let realImgTwo;
-let realImgThree;
-
-createReels(realImgOne,1)
-createReels(realImgOne,2)
-createReels(realImgOne,3)
-
-
-
-
-
-
 const player={
     money: 1000
 }
 
 class Slot {
     constructor(){
-        this.reelImgOne = ""
-        this.reelImgTwo = ""
-        this.reelImgThree = ""
-        this.reel1 = []
-        this.reel2 = []
-        this.reel3 = []
+            this.reel1 = []
+            this.reel2 = []
+            this.reel3 = []
+            this.allReels = [[this.reel1],[this.reel2],this.reel3]
         
     }
-    //Set ups reel with img and value
-    buildReelImg(reel, value){
-        reel = document.createElement('img')
-        reel.setAttribute('src',`assests/slot/${value}.png` )
-        reel.setAttribute('class', 'slot-reel')
-        reel.setAttribute('value',value )
-    }
+    buildReel(){
+        //Builds each slot reel and push them into 3 seperate arrays
+        for(let i = 1; i <= 3; i++){
+            for(let j =1; j<=3; j++){
+                let reel1 = document.createElement('img')
+                reel1.setAttribute('src',`assests/slot/${j}.png` )
+                reel1.setAttribute('class', 'slot-reel')
+                reel1.setAttribute('value',j )
+                this.reel1.push(reel1)
+            }
+                for(let k=1; k<=3;k++){
+                    let reel2 = document.createElement('img')
+                    reel2.setAttribute('src',`assests/slot/${k}.png` )
+                    reel2.setAttribute('class', 'slot-reel')
+                    reel2.setAttribute('value',k )
+                    this.reel2.push(reel2)
+                }for(let h=1; h<=3;h++){
+
+                    let reel3 = document.createElement('img')
+                    reel3.setAttribute('src',`assests/slot/${i}.png` )
+                    reel3.setAttribute('class', 'slot-reel')
+                    reel3.setAttribute('value',i )
+                    this.reel3.push(reel3)
+                }
+               
+               
+            }
+        }
+    
     randomReel(reel){
         for(let i = reel.length -1; i > 0; i--){
             //Shuffling around each index to make sure random everytime.
@@ -77,7 +75,20 @@ class Slot {
     }
 }
 //  Event listener and starts game.
-// const slot = new Slot('Slot machine')
+const slot = new Slot('Slot machine')
+slot.buildReel()
+
+const test = () =>{
+    for(let i=0; i < slot.allReels.length; i++){
+        for(let k=0; k < slot.allReels[i].length; k++){
+            console.log(slot.allReels[i][k])
+            console.log(k)
+        }
+    }
+}
+
+console.log(slot.allReels)
+
 // spinBtn.addEventListener('click',function(){
 //     player.money -= 50
 //     playerMoney.innerHTML = player.money
