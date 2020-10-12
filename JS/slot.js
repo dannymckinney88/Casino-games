@@ -14,7 +14,8 @@ class Slot {
             this.reel2 = []
             this.reel3 = []
             // For 2D reel 
-            this.allReels = [[this.reel1],[this.reel2],this.reel3]
+            this.allReels = [this.reel1,this.reel2,this.reel3]
+            this.displayReel = []
         
     }
     buildReel(){
@@ -55,9 +56,19 @@ class Slot {
             reel[j] = temp
         }
     }
-    displayRandom(array, postion){
-            reelContainers[postion].innerHTML = ''
-            reelContainers[postion].appendChild(array[0])
+
+    reelDisplay(array){
+        for(let i =0; i <3; i++){
+            console.log(array[i])
+            this.displayReel.push(array)
+        }
+    }
+
+    displayRandom(array,){
+        for(let i=0; i< 3; i++){
+            reelContainers[i].innerHTML = ''
+            reelContainers[i].appendChild(array[i])
+        }
     }
 
     checkForWin(){
@@ -78,18 +89,27 @@ class Slot {
 //  Event listener and starts game.
 const slot = new Slot('Slot machine')
 slot.buildReel()
+slot.randomReel(slot.reel1)
+slot.randomReel(slot.reel2)
+slot.randomReel(slot.reel3)
+slot.reelDisplay(slot.allReels[0])
+slot.reelDisplay(slot.allReels[1])
+slot.reelDisplay(slot.allReels[2])
+// console.log(slot.displayReel)
 
 const test = () =>{
     for(let i=0; i < slot.allReels.length; i++){
-        for(let k=0; k < slot.allReels[i].length; k++){
-            console.log(slot.allReels[i][k])
+        console.log('I am outside'+i)
+        for(let k=0; k < 3; k++){
+            console.log('I am inside'+i)
             console.log(k)
+            console.log(slot.allReels[i][k])
         }
     }
 }
 
-console.log(slot.allReels)
-
+// console.log(slot.allReels[])
+test()
 // spinBtn.addEventListener('click',function(){
 //     player.money -= 50
 //     playerMoney.innerHTML = player.money
