@@ -1,5 +1,7 @@
 //Selectors && Event listeners
-const reelContainers = document.querySelectorAll('.reel-container')
+const reelContainer1 = document.querySelector('.reel1')
+const reelContainer2 = document.querySelector('.reel2')
+const reelContainer3 = document.querySelector('.reel3')
 const spinBtn = document.querySelector('.spin-container')
 const background = document.querySelector('.slot-backgroud')
 const playerMoney = document.querySelector('.player-money')
@@ -15,7 +17,7 @@ class Slot {
             this.reel3 = []
             // For 2D reel 
             this.allReels = [this.reel1,this.reel2,this.reel3]
-            this.displayReel = []
+            this.reelToDisplay = []
         
     }
     buildReel(){
@@ -60,14 +62,16 @@ class Slot {
     reelDisplay(array){
         for(let i =0; i <3; i++){
             console.log(array[i])
-            this.displayReel.push(array)
+            this.reelToDisplay.push(array)
         }
     }
 
-    displayRandom(array,){
+    displayRandom(reelContainer, reel){
+        let createDiv = document.createElement('div')
+        createDiv.setAttribute('class','reel')
         for(let i=0; i< 3; i++){
-            reelContainers[i].innerHTML = ''
-            reelContainers[i].appendChild(array[i])
+            reelContainer[i].innerHTML = ''
+            reelContainer[i].appendChild(reel[i])
         }
     }
 
@@ -95,6 +99,7 @@ slot.randomReel(slot.reel3)
 slot.reelDisplay(slot.allReels[0])
 slot.reelDisplay(slot.allReels[1])
 slot.reelDisplay(slot.allReels[2])
+// slot.reelDisplay(slot.displayReel)
 // console.log(slot.displayReel)
 
 const test = () =>{
