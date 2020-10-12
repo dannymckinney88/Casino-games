@@ -13,6 +13,7 @@ class Slot {
             this.reel1 = []
             this.reel2 = []
             this.reel3 = []
+            // For 2D reel 
             this.allReels = [[this.reel1],[this.reel2],this.reel3]
         
     }
