@@ -362,3 +362,4 @@ standButton.addEventListener('click', ()=>{
 span.onclick = function() {
   modal.style.display = "none";
 }
+

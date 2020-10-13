@@ -173,7 +173,7 @@ class Poker extends Casino {
         }
         cardTotals = []
         flushArray = []
-        console.log(cardTotals )
+    
    }
    hasStraight(){
     // Temp array to hold the parsed values and then sort them.
