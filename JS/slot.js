@@ -9,7 +9,6 @@ const playerMoney = document.querySelector('.player-money')
 const player={
     money: 1000
 }
-
 class Slot {
     constructor(){
             this.reel1 = []
@@ -57,11 +56,13 @@ class Slot {
     }
     // Displays the correct combonation on screen
     displayRandom(reelContainer, reel){
-        let createDiv = document.createElement('div')
-        createDiv.setAttribute('class','reel')
+        // let createDiv = document.createElement('div')
+        // createDiv.setAttribute('class','reel')
+        reelContainer.innerHTML = ''
         for(let i=0; i< 3; i++){
-            reelContainer[i].innerHTML = ''
-            reelContainer[i].appendChild(reel[i])
+            reelContainer.appendChild(reel[i])
+
+            
         }
     }
 
@@ -114,7 +115,10 @@ console.log(slot.allReels[1])
 //     slot.randomReel(slot.reel1)
 //     slot.randomReel(slot.reel2)
 //     slot.randomReel(slot.reel3)
-//     slot.displayRandom(slot.reel1,0)
+    slot.displayRandom(reelContainer1,slot.reel1)
+
+    slot.displayRandom(reelContainer2,slot.reel2)
+    slot.displayRandom(reelContainer3,slot.reel3)
 //     slot.displayRandom(slot.reel2,1)
 //     slot.displayRandom(slot.reel3,2)
 //     slot.checkForWin()
