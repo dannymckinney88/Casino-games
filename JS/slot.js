@@ -22,34 +22,21 @@ class Slot {
             this.reelToDisplay = []
         
     }
-    buildReel(){
+    buildReel(reel){
         //Builds each slot reel and push them into 3 seperate arrays
-        for(let i = 1; i <= 3; i++){
-            for(let j =1; j<=3; j++){
-                let reel1 = document.createElement('img')
-                reel1.setAttribute('src',`assests/slot/${j}.png` )
-                reel1.setAttribute('class', 'slot-reel')
-                reel1.setAttribute('value',j )
-                this.reel1.push(reel1)
+        let counter = 0
+        while(counter < 4){
+            for(let i = 1; i <= 3; i++){
+                let tempReel = document.createElement('img')
+                tempReel.setAttribute('src',`assests/slot/${i}.png` )
+                tempReel.setAttribute('class', 'slot-reel')
+                tempReel.setAttribute('value',i )
+                reel.push(tempReel)
+                    
             }
-                for(let k=1; k<=3;k++){
-                    let reel2 = document.createElement('img')
-                    reel2.setAttribute('src',`assests/slot/${k}.png` )
-                    reel2.setAttribute('class', 'slot-reel')
-                    reel2.setAttribute('value',k )
-                    this.reel2.push(reel2)
-                }for(let h=1; h<=3;h++){
-
-                    let reel3 = document.createElement('img')
-                    reel3.setAttribute('src',`assests/slot/${i}.png` )
-                    reel3.setAttribute('class', 'slot-reel')
-                    reel3.setAttribute('value',i )
-                    this.reel3.push(reel3)
-                }
-               
-               
-            }
+            counter++
         }
+    }
     
     randomReel(reel){
         for(let i = reel.length -1; i > 0; i--){
@@ -94,7 +81,9 @@ class Slot {
 }
 //  Event listener and starts game.
 const slot = new Slot('Slot machine')
-slot.buildReel()
+slot.buildReel(slot.reel1)
+slot.buildReel(slot.reel2)
+slot.buildReel(slot.reel3)
 slot.randomReel(slot.reel1)
 slot.randomReel(slot.reel2)
 slot.randomReel(slot.reel3)
@@ -115,8 +104,8 @@ const test = () =>{
     }
 }
 
-// console.log(slot.allReels[])
-test()
+console.log(slot.allReels[1])
+// test()
 // spinBtn.addEventListener('click',function(){
 //     player.money -= 50
 //     playerMoney.innerHTML = player.money
