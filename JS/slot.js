@@ -17,6 +17,8 @@ class Slot {
             this.reel3 = []
             // For 2D reel 
             this.allReels = [this.reel1,this.reel2,this.reel3]
+            // Stores correct combination from all three reels in order
+            //Might take out?
             this.reelToDisplay = []
         
     }
