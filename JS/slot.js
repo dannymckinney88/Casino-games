@@ -47,14 +47,15 @@ class Slot {
             reel[j] = temp
         }
     }
-
+    // Creates an array with the reel to display 
+        // - might scrap this function
     reelDisplay(array){
         for(let i =0; i <3; i++){
             console.log(array[i])
             this.reelToDisplay.push(array)
         }
     }
-
+    // Displays the correct combonation on screen
     displayRandom(reelContainer, reel){
         let createDiv = document.createElement('div')
         createDiv.setAttribute('class','reel')
